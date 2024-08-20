@@ -244,11 +244,7 @@ html, body{
   letter-spacing: 1px;
   background: linear-gradient(to left, #99004d 0%, #ff0080 100%);
 }
-.container .option{
-  font-size: 14px;
-  text-align: center;
-}
-.container .facebook a,
+
 .container .twitter a{
   display: block;
   height: 45px;
@@ -286,3 +282,12 @@ html, body{
   color: black;
 }
 
+.container .signin {
+  padding: 8px 50px;
+  color: rgb(36, 13, 245);
+
+}
+
+.container .signin a {
+  text-decoration: none;
+}

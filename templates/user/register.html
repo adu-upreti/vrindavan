@@ -1,3 +1,6 @@
+{% load static %}
+
+
 <!DOCTYPE html>
 <!-- Created By CodingLab - www.codinglabweb.com -->
 <html lang="en" dir="ltr">
@@ -38,7 +41,6 @@
             <input type="text" placeholder="Confirm your password" required>
           </div>
         </div>
-        <div class="option">or Connect With Social Media</div>
         <div class="google">
           <a href="#">
             <img src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg" alt="Google Logo" style="width: 20px; height: 20px; margin-right: 12px;">
@@ -48,6 +50,9 @@
         
         <div class="button">
           <input type="submit" value="Register">
+        </div>
+        <div class="signin">
+          <a href="{% url 'userlogin' %}">I have already account.</a>
         </div>
       </form>
     </div>
