@@ -1,0 +1,43 @@
+{% extends 'adminfile/ad_parent.html' %}
+{% load static %}
+
+{% block contents %}
+
+<title>Update Product - Dashboard HTML Template</title>
+
+<link rel="stylesheet" href="{% static 'jquery-ui-datepicker/jquery-ui.min.css' %}" type="text/css" />
+<!-- http://api.jqueryui.com/datepicker/ -->
+
+<div class="container tm-mt-big tm-mb-big">
+  <div class="row">
+      <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
+          <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+              <div class="row">
+                  <div class="col-12">
+                      <h2 class="tm-block-title d-inline-block">Update Product</h2>
+                  </div>
+              </div>
+              <div class="row tm-edit-product-row">
+                  <div class="col-xl-6 col-lg-6 col-md-12">
+                      <form method="post">
+                          {% csrf_token %}
+                          {{ form.as_p }}
+                          <button type="submit" class="btn btn-primary btn-block text-uppercase">Save</button>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<script src="{% static 'jquery-ui-datepicker/jquery-ui.min.js' %}"></script>
+<!-- https://jqueryui.com/download/ -->
+
+<script>
+  $(function() {
+    $("#expire_date").datepicker();
+  });
+</script>
+
+{% endblock %}

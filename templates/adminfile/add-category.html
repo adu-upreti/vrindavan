@@ -1,0 +1,34 @@
+{% extends 'adminfile/ad_parent.html' %}
+{% load static %}
+
+
+
+
+{% block contents %}
+
+
+<div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 tm-block-col">
+    <div class="tm-bg-primary-dark tm-block tm-block-product-categories">
+      <h2 class="tm-block-title">Add Categories</h2>
+      <div class="tm-product-table-container">
+        <table class="table tm-table-small tm-product-table">
+          <tbody>
+           
+            <tr>
+              <td class="tm-product-name">
+                <form method="post" >
+                {% csrf_token %}
+                {{ form.as_p }}</td>
+              
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block text-uppercase mb-3">Add Category</button>
+    </form>
+    </div>
+  </div>
+
+
+{% endblock %}

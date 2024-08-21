@@ -1,0 +1,79 @@
+{% extends 'adminfile/ad_parent.html' %}
+{% load static %}
+
+{% block contents %}
+
+<title>Add Product - Dashboard HTML Template</title>
+
+<link rel="stylesheet" href="jquery-ui-datepicker/jquery-ui.min.css" type="text/css" />
+<!-- http://api.jqueryui.com/datepicker/ -->
+
+
+<div class="container tm-mt-big tm-mb-big">
+  <div class="row">
+      <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
+          <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+              <div class="row">
+                  <div class="col-12">
+                      <h2 class="tm-block-title d-inline-block">Add Product</h2>
+                  </div>
+              </div>
+              <div class="row tm-edit-product-row">
+                  <div class="col-xl-6 col-lg-6 col-md-12">
+                      <form action="{% url 'product_form' %}" class="tm-edit-product-form" method="post" enctype="multipart/form-data">
+                          {% csrf_token %}
+
+                          {% if messages %}
+                          {% for message in messages %}
+                              <div class="alert alert-{{ message.tags }}">
+                                  {{ message }}
+                              </div>
+                          {% endfor %}
+                          {% endif %}
+
+                          <div class="form-group mb-3">
+                              <label for="id_name">Product Name</label>
+                              {{ form.name }}
+                          </div>
+                          <div class="form-group mb-3">
+                              <label for="id_description">Description</label>
+                              {{ form.description }}
+                          </div>
+                          <div class="form-group mb-3">
+                              <label for="id_category">Category</label>
+                              {{ form.category }}
+                          </div>
+                          <div class="form-group mb-3">
+                            <label for="id_category">Price</label>
+                            {{ form.price }}
+                          </div>
+                          
+
+
+                          <div class="form-group mb-3">
+                            <label for="id_image">Image</label>
+                            {{ form.image }}
+                        </div>
+                          <button type="submit" class="btn btn-primary btn-block text-uppercase">Add Product Now</button>
+                          
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+
+
+<script src="jquery-ui-datepicker/jquery-ui.min.js"></script>
+<!-- https://jqueryui.com/download/ -->
+
+<script>
+  $(function() {
+    $("#expire_date").datepicker();
+  });
+</script>
+
+{% endblock %}
