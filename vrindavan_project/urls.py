@@ -23,6 +23,7 @@ from .views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/', include('userpage.urls')),
+    path('mycard/', include('qrcode.urls')),
     path('', Home, name='homepage'),
 ]
 
