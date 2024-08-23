@@ -89,4 +89,4 @@ def Logout(request):
     data = {
         'logout_active_page':'active'
     }
-    return render(request, "user/login.html", data)
+    return render(request, "user/index.html", data)
