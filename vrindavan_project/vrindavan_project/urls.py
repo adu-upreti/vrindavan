@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/', include('userpage.urls')),
     path('mycard/', include('qrcode.urls')),
+    path('account/', include('logsign.urls')),
     path('', Home, name='user_dashboard'),
 ]
 

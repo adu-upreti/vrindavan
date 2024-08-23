@@ -4,8 +4,8 @@ from django.conf.urls.static import static
 from .views import *
 
 urlpatterns = [
-    path("login/", UserLogin, name="adminlogin"),
-    path('register/', UserSignin, name='adminregister'),
+    # path("login/", UserLogin, name="adminlogin"),
+    # path('register/', UserSignin, name='adminregister'),
 ]
 
 if settings.DEBUG:

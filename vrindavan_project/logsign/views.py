@@ -12,47 +12,58 @@ def Login(request):
         'dashboard_active_page': 'active'
     }
 
-
     if request.method == "GET":
         return render(request, "user/login.html", data)
     
     elif request.method == "POST":
-        form_username = request.POST['username']
+        form_email = request.POST['username']  # Getting the email from the form
         form_password = request.POST['password']
-        user_obj = authenticate(username=form_username, password=form_password)
-        if user_obj:
-            login(request, user=user_obj)
-            if user_obj.is_superuser:
-                return redirect('admin_dashboard')
+
+        try:
+            # Get the user object using the email
+            user_obj = User.objects.get(email=form_email)
+            # Authenticate using the username (which is the email in this case) and password
+            user = authenticate(username=user_obj.username, password=form_password)
+
+            if user:
+                login(request, user=user)
+                if user.is_superuser:
+                    return redirect('admin_dashboard')
+                else:
+                    return redirect('user_dashboard')
             else:
-                return redirect('user_dashboard')
-        else:
-            return render(request, "user/login.html", {'error': 'Invalid credentials'})
+                messages.error(request, 'Invalid credentials')
+                return render(request, "user/login.html", data)
+        
+        except User.DoesNotExist:
+            messages.error(request, 'Invalid credentials')
+            return render(request, "user/login.html", data)
+    
     else:
-        print("unknown")
+        return render(request, "user/login.html", data)
 
 
 
 
 def register(request):
     if request.method == "POST":
-        username = request.POST['name']
-        email = request.POST['email']
+        full_name = request.POST['name']  # Full Name field
+        email = request.POST['email']  # Email will serve as the username
         password = request.POST['password']
         password2 = request.POST['password2']
         location = request.POST.get('location', '')
         phone = request.POST.get('phone', '')
 
         if password == password2:
-            if User.objects.filter(username=username).exists():
-                messages.error(request, 'Username already exists')
-            elif User.objects.filter(email=email).exists():
+            if User.objects.filter(username=email).exists():
                 messages.error(request, 'Email already exists')
             else:
-                user = User.objects.create_user(username=username, email=email, password=password)
+                # Create the user using the email as the username
+                user = User.objects.create_user(username=email, email=email, password=password)
                 user.save()
 
-                Profile.objects.create(user=user, location=location, phone=phone)
+                # Create the profile with the full name, location, and phone number
+                Profile.objects.create(user=user, full_name=full_name, location=location, phone=phone)
 
                 messages.success(request, 'Your account has been created successfully. Please log in.')
                 return redirect('adminlogin')
@@ -60,6 +71,7 @@ def register(request):
             messages.error(request, 'Passwords do not match')
 
     return render(request, 'user/register.html')
+
 
 
 

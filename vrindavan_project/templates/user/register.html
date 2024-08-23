@@ -13,6 +13,14 @@
     <div class="container">
       <div class="title">Registration</div>
       <div class="content">
+        {% if messages %}
+        <ul>
+          {% for message in messages %}
+          <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+
         <form
           action="{% url 'adminregister' %}"
           method="post"
@@ -25,7 +33,7 @@
               <input
                 type="text"
                 name="name"
-                placeholder="Enter your name"
+                placeholder="Enter your full name"
                 required
               />
             </div>
@@ -52,7 +60,7 @@
               <input
                 type="text"
                 name="phone"
-                placeholder="Enter your number"
+                placeholder="Enter your phone number"
                 required
               />
             </div>
