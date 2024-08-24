@@ -24,18 +24,23 @@
                     <h1 class="mb-5">Download your QR Code</h1>
                 </div>
                     <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-                        <div class="team-item text-center rounded overflow-hidden">
+                        {% if img %}
+                        <img src="{{img.imag.url}}" alt="QR Code">
+                        <a href="{{ img.imag.url }}" download="{{ img.imag.name }}" class="btn btn-primary mt-2">Download Image</a>
+                        {% endif %}
+                        {% comment %} <div class="team-item text-center rounded overflow-hidden">
                             {% if img %}
                                 <img class="img-fluid" src="{{ img.imag.url }}" alt="mycard">
                                 <a href="{{ img.imag.url }}" 
-                                   download="vrindavan-card.png"
+                                   download="{{ img.imag.name }}"
                                    class="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft">
                                    Download
                                 </a>
                             {% else %}
                                 <p>No QR code available.</p>
                             {% endif %}
-                        </div>
+                        </div> {% endcomment %}
+                        
                     </div>
                 </div>
             </div>

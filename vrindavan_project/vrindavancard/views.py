@@ -7,11 +7,11 @@ from logsign.models import *
 from .models import GenerateImage
 
 
-
 @login_required(login_url='adminlogin')
 def MyCard(request):
     try:
         mydata = Profile.objects.get(user=request.user)
+        # Gather all necessary details to include in the QR code
         qr_data = (
             f"Name: {mydata.full_name}\n"
             f"Email: {mydata.user.email}\n"
@@ -21,19 +21,22 @@ def MyCard(request):
     except Profile.DoesNotExist:
         return render(request, 'user/index.html')
 
+    # Generate QR code image
     img = generate_qr_code(qr_data)
 
+    # Save the image to an in-memory file
     image_io = io.BytesIO()
     img.save(image_io, format='PNG')
 
-    image_file = ContentFile(image_io.getvalue(), name='vrindavan-card.png')
+    # Create a ContentFile from the in-memory file
+    image_file = ContentFile(image_io.getvalue(), name=f'{request.user.username}-qr.png')
 
+    # Save the image to the database
     qr_image = GenerateImage.objects.create(imag=image_file)
 
     context = {'img': qr_image}
 
     return render(request, 'user/mycard.html', context)
-
 
 def generate_qr_code(data):
     qr = qrcode.QRCode(
@@ -47,5 +50,13 @@ def generate_qr_code(data):
 
     image = qr.make_image(fill_color="black", back_color="white")
     return image
+
+# import logging
+# logger = logging.getLogger(__name__)
+
+# # Inside the view
+# logger.debug(f"QR Data: {qr_data}")
+# logger.debug(f"Image File Name: {image_file.name}")
+
 
 
