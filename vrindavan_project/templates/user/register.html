@@ -25,6 +25,7 @@
           action="{% url 'adminregister' %}"
           method="post"
           enctype="multipart/form-data"
+          id='registerform'
         >
           {% csrf_token %}
           <div class="user-details">
@@ -87,17 +88,6 @@
             <input type="submit" value="Register" />
           </div>
         </form>
-
-        <div class="google">
-          <a href="#">
-            <img
-              src="{% static 'img/google-logo.png' %}"
-              alt="Google Logo"
-              style="width: 20px; height: 20px; margin-right: 12px"
-            />
-            Sign in With Google
-          </a>
-        </div>
 
         <div class="signin">
           <a href="{% url 'adminlogin' %}">I have already account.</a>

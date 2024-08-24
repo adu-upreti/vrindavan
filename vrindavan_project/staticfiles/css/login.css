@@ -262,20 +262,15 @@ html, body{
   display: flex;
   align-items: center;
   background: white;
-  color: black;
+  color: rgb(36, 13, 245);
   padding: 10px 20px;
   text-decoration: none;
   border-radius: 5px;
   font-size: 16px;
-  border: 1px solid #dcdcdc;
+  border: 1px solid #797878;
   transition: background 0.3s ease;
 }
 
-.container .google img {
-  width: 20px;
-  height: 20px;
-  margin-right: 12px;
-}
 
 .container .google a:hover {
   background: #f0f0f0;

@@ -1,4 +1,9 @@
 /********** Template CSS **********/
+html {
+    scroll-behavior: smooth;
+}
+
+
 :root {
     --primary: #FEA116;
     --light: #F1F8FF;

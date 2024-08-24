@@ -12,7 +12,7 @@
   </head>
   <body>
     <div class="container">
-      <form action="{% url 'adminlogin' %}" method="post">
+      <form action="{% url 'adminlogin' %}" method="post" id="loginform">
         {% csrf_token %}
         <div class="title">Login</div>
         <div class="input-box underline">
@@ -29,8 +29,7 @@
       </form>
       <div class="google">
         <a href="#">
-          <img src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg" alt="Google Logo" style="width: 20px; height: 20px; margin-right: 12px;">
-          Sign in With Google
+          Forget my Password
         </a>
       </div>
       <div class="signin">

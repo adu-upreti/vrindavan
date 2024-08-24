@@ -23,8 +23,9 @@ from .views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/', include('userpage.urls')),
-    path('mycard/', include('qrcode.urls')),
+    path('mycard/', include('vrindavancard.urls')),
     path('account/', include('logsign.urls')),
+    path('admin-dashboard/', include('adminpage.urls')),
     path('', Home, name='user_dashboard'),
 ]
 

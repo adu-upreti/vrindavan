@@ -1,5 +1,8 @@
 {% load static %}
 
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -50,37 +53,19 @@
                     <span class="fa fa-bars"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <div class="navbar-nav ms-auto py-0 pe-4">
-                        <a href="index.html" class="nav-item nav-link active">Home</a>
-                        <a href="about.html" class="nav-item nav-link">About</a>
-                        <a href="service.html" class="nav-item nav-link">Service</a>
-                        <a href="{% url 'mycard' %}" class="nav-item nav-link">MyCard</a>
-                        <a href="menu.html" class="nav-item nav-link">Menu</a>                        
-                        <a href="contact.html" class="nav-item nav-link">Contact</a>
+                  <div class="navbar-nav ms-auto py-0 pe-4">
+                      <a href="{% url 'user_dashboard' %}" class="nav-item nav-link active">Home</a>
+                      <a href="{% url 'mycard' %}" class="nav-item nav-link">MyCard</a>
+                      <a href="" class="nav-item nav-link">Menu</a>
+                      <a href="{% url 'user_dashboard' %}#about-us" class="nav-item nav-link">About us</a>
+                      {% if request.user.is_authenticated %}
+                      <div class="nav-item dropdown">
+                        <a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">{{ first_name }}</a>
+                        <div class="dropdown-menu m-0">
+                          <a href="{% url 'userlogout' %}" class="dropdown-item">Logout</a>
+                        </div>
+                      </div>                    
+                      {% endif %}
                     </div>
-                    <a href="" class="btn btn-primary py-2 px-4">Book A Table</a>
-                </div>
+              </div>
             </nav>
-
-            <div class="container-xxl py-5 bg-dark hero-header mb-5">
-                <div class="container text-center my-5 pt-5 pb-4">
-                    <h1 class="display-3 text-white mb-3 animated slideInDown">Our Team</h1>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb justify-content-center text-uppercase">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                            <li class="breadcrumb-item text-white active" aria-current="page">Team</li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
-        <!-- Navbar & Hero End -->
-
-
-
-
-
-
-
-
