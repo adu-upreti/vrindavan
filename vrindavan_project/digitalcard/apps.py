@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class VrindavancardConfig(AppConfig):
+class DigitalcardConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'vrindavancard'
+    name = 'digitalcard'

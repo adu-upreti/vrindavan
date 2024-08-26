@@ -38,9 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'userpage',
-    'vrindavancard',
     'adminpage',
-    'logsign'
+    'logsign',
+    'digitalcard'
 ]
 
 MIDDLEWARE = [
