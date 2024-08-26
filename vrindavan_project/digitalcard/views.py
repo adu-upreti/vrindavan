@@ -1,4 +1,5 @@
-from django.shortcuts import render,HttpResponse
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from logsign.models import Profile
 import os
@@ -35,6 +36,7 @@ def create_profile_qr_code(user):
     # Return the relative URL to the image
     return os.path.join('qrcodes', filename)
 
+@login_required
 def MyCard(request):
     if request.user.is_authenticated:
         qr_image_path = create_profile_qr_code(request.user)

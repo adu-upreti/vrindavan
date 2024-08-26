@@ -74,8 +74,6 @@ def add_cat(request):
         form = CategoryForm()
     return render(request, "adminfile/add-category.html", {'form': form})
 
-
-# Delete category
 @login_required
 def delete_category(request, category_id):
     category = get_object_or_404(Category, id=category_id)
@@ -92,4 +90,9 @@ def A_product(request):
     }
 
     return render(request, "adminfile/products.html", datas)
+
+@login_required
+def Userlist(request):
+    
+    return render(request, "adminfile/userlist.html")
 

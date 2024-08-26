@@ -56,7 +56,7 @@
                   <div class="navbar-nav ms-auto py-0 pe-4">
                       <a href="{% url 'user_dashboard' %}" class="nav-item nav-link active">Home</a>
                       <a href="{% url 'mycard' %}" class="nav-item nav-link">MyCard</a>
-                      <a href="" class="nav-item nav-link">Menu</a>
+                      <a href="{% url 'menu' %}" class="nav-item nav-link">Menu</a>
                       <a href="{% url 'user_dashboard' %}#about-us" class="nav-item nav-link">About us</a>
                       {% if request.user.is_authenticated %}
                       <div class="nav-item dropdown">
