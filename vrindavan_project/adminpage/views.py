@@ -1,9 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render,HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.db.models import Q
 from .forms import *
 from .models import *
+from logsign.models import *
+import openpyxl
 
 @login_required
 def admin_dashboard(request):
@@ -80,19 +83,83 @@ def delete_category(request, category_id):
     category.delete()
     return redirect('admin_product')
 
+
+@login_required
 def A_product(request):
-    product_list = Products.objects.all()
     category_list = Category.objects.all()
+    query = request.GET.get('q')
+
+    if query:
+        product_list =  Products.objects.filter(
+            Q(name__icontains=query)
+        ).order_by('name')
+
+    else:
+
+        product_list = Products.objects.all()
+    
 
     datas = {
         'categories': category_list,
         'products': product_list,
+        'query': query,
     }
 
     return render(request, "adminfile/products.html", datas)
 
+
 @login_required
 def Userlist(request):
-    
-    return render(request, "adminfile/userlist.html")
+    query = request.GET.get('q')
 
+    if query:
+        user_list = Profile.objects.filter(
+            Q(full_name__icontains=query) | 
+            Q(user__email__icontains=query)
+        ).order_by('full_name')
+    else:
+        user_list = Profile.objects.all().order_by('full_name')
+
+    # Check if the export button was clicked
+    if 'export' in request.GET:
+        return export_users_to_excel(user_list)
+
+    datas = {
+        'userlist': user_list,
+        'query': query,
+    }
+    
+    return render(request, "adminfile/userlist.html", datas)
+
+
+
+def export_users_to_excel(user_list):
+    # Create a workbook and add a worksheet
+    workbook = openpyxl.Workbook()
+    worksheet = workbook.active
+    worksheet.title = 'Users'
+
+    # Define the titles for columns
+    columns = ['S.N.', 'Full Name', 'Email', 'Phone Number', 'Location']
+    row_num = 1
+
+    # Assign the titles for each cell of the header
+    for col_num, column_title in enumerate(columns, 1):
+        worksheet.cell(row=row_num, column=col_num, value=column_title)
+
+    # Populate the data for each user
+    for index, user in enumerate(user_list, start=1):
+        row_num += 1
+        worksheet.cell(row=row_num, column=1, value=index)
+        worksheet.cell(row=row_num, column=2, value=user.full_name)
+        worksheet.cell(row=row_num, column=3, value=user.user.email)
+        worksheet.cell(row=row_num, column=4, value=user.phone)
+        worksheet.cell(row=row_num, column=5, value=user.location)
+
+    # Create an HttpResponse with Excel file content
+    response = HttpResponse(
+        content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    )
+    response['Content-Disposition'] = 'attachment; filename=users.xlsx'
+    workbook.save(response)
+    return response

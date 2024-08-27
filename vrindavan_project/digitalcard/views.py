@@ -20,7 +20,7 @@ def generate_qr_code(data):
 
 def create_profile_qr_code(user):
     profile = Profile.objects.get(user=user)
-    data = f"Name: {profile.full_name}\nLocation: {profile.location}\nPhone: {profile.phone}"
+    data = f"Name: {profile.full_name}\nLocation: {profile.location}\nPhone: {profile.phone}\nGmail: {profile.user}"
     img = generate_qr_code(data)
     
     # Define the file path for saving the QR code

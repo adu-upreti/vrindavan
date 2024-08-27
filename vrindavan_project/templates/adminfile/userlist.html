@@ -3,81 +3,44 @@
 
 {% block contents %}
 
-<title>Product Page - Admin HTML Template</title>
+<title>User List</title>
 
 <div class="container mt-5">
   <div class="row tm-content-row">
     <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 tm-block-col">
+      <form method="GET" action="{% url 'userlist' %}">
+        <input type="text" name="q" placeholder="Search by name or email..." value="{{ query|default_if_none:'' }}">
+        <button type="submit" class="btn btn-primary">Search</button>
+        <button type="submit" name="export" value="true" class="btn btn-success">Download Data</button>
+      </form>    
       <div class="tm-bg-primary-dark tm-block tm-block-products">
-
-        {% if messages %}
-        <div id="message-container" class="alert alert-info">
-          {% for message in messages %}
-          <p>{{ message }}</p>
-          {% endfor %}
-        </div>
-        {% endif %}
-
         <div class="tm-product-table-container">
-          <form id="delete-form" method="POST" action="{% url 'delete_selected_products' %}">
-            {% csrf_token %}
             <input type="hidden" name="is_multiple" value="true">
             <table class="table table-hover tm-table-small tm-product-table">
               <thead>
-                <tr>
-                  <th scope="col">&nbsp;</th>
-                  <th scope="col">PRODUCT NAME</th>
-                  <th scope="col">PRICE</th>
-                  <th scope="col">CATEGORY</th>
-                  <th scope="col"></th>
-                  <th scope="col">&nbsp;</th>
-                </tr>
+                  <tr>
+                      <th scope="col">S.N.</th>
+                      <th scope="col">User Name</th>
+                      <th scope="col">Gmail</th>
+                      <th scope="col">Number</th>
+                      <th scope="col">Location</th>
+                      <th scope="col"></th>
+                  </tr>
               </thead>
               <tbody>
-                {% for product in products %}
-                <tr>
-                  <th scope="row"><input type="checkbox" name="selected_products" value="{{ product.id }}" /></th>
-                  <td class="tm-product-name">{{ product.name }}</td>
-                  <td>{{ product.price }}</td>
-                  <td>{{ product.category }}</td>
-                  <td><a href="{% url 'update_product' product.id %}">Edit</a></td>
-                  <td>
-                    <a href="#" class="tm-product-delete-link" onclick="deleteSingleProduct({{ product.id }})">
-                      <i class="far fa-trash-alt tm-product-delete-icon"></i>
-                    </a>
-                  </td>
-                </tr>
-                {% endfor %}
+                  {% for user in userlist %}
+                  <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                      <td class="tm-product-name">{{ user.full_name }}</td>
+                      <td>{{ user.user.email }}</td>
+                      <td>{{ user.phone }}</td>
+                      <td>{{ user.location }}</td>
+                      <td></td>
+                  </tr>
+                  {% endfor %}
               </tbody>
-            </table>
-            <button type="button" class="btn btn-primary btn-block text-uppercase" onclick="deleteSelectedProducts()">
-              Delete selected products
-            </button>
-          </form>
+          </table>          
         </div>
-        <a href="{% url 'product_form' %}" class="btn btn-primary btn-block text-uppercase mb-3">Add new product</a>
-      </div>
-    </div>
-    <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 tm-block-col">
-      <div class="tm-bg-primary-dark tm-block tm-block-product-categories">
-        <h2 class="tm-block-title">Product Categories</h2>
-        <div class="tm-product-table-container">
-          <table class="table tm-table-small tm-product-table">
-            <tbody>
-              {% for i in categories %}
-              <tr>
-                <td class="tm-product-name">{{ i.cat_name }}</td>
-                <td class="text-center">
-                  <a href="{% url 'delete_category' i.id %}" class="tm-product-delete-link" onclick="return confirm('Are you sure you want to delete this category?');">
-                    <i class="far fa-trash-alt tm-product-delete-icon"></i>
-                  </a>
-                </td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-        <a href="{% url 'AddCategory' %}" class="btn btn-primary btn-block text-uppercase mb-3">Add new category</a>
       </div>
     </div>
   </div>

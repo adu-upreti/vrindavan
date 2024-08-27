@@ -3,11 +3,15 @@
 
 {% block contents %}
 
-<title>Product Page - Admin HTML Template</title>
+<title>Product Page</title>
 
 <div class="container mt-5">
   <div class="row tm-content-row">
     <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 tm-block-col">
+      <form method="GET" action="{% url 'admin_product' %}">
+        <input type="text" name="q" placeholder="Search by name" value="{{ query|default_if_none:'' }}">
+        <button type="submit" class="btn btn-primary">Search</button>
+      </form>   
       <div class="tm-bg-primary-dark tm-block tm-block-products">
 
         {% if messages %}
