@@ -117,3 +117,17 @@
     
 })(jQuery);
 
+
+
+// chat feature
+
+document.getElementById('chat-icon').addEventListener('click', function() {
+    var popup = document.getElementById('chat-popup');
+    if (popup.style.display === "none" || popup.style.display === "") {
+        popup.style.display = "block";
+    } else {
+        popup.style.display = "none";
+    }
+});
+
+
