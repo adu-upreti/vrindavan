@@ -129,5 +129,3 @@ document.getElementById('chat-icon').addEventListener('click', function() {
         popup.style.display = "none";
     }
 });
-
-

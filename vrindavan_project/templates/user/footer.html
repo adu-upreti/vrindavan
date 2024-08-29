@@ -46,22 +46,45 @@
 <!-- Footer End -->
 
 <!-- Chat Button and Popup -->
-<div class="chat-container">
+<div class="custom-chat-container">
     <!-- Main Chat Icon -->
-    <div id="chat-icon" class="chat-icon">
-        <i class="fas fa-comment"></i>
+    <div id="custom-chat-icon" class="custom-chat-icon">
+        <img src="{% static 'img/icon.png' %}" alt="Chat Icon" class="custom-chat-icon-img">
     </div>
-    
+
     <!-- Popup with Social Icons -->
-    <div id="chat-popup" class="chat-popup">
-        <a class="btn btn-social" href="https://wa.me/9779761717599">
-            <i class="fab fa-whatsapp"></i>
+    <div id="custom-chat-popup" class="custom-chat-popup">
+        <a class="custom-btn-social" href="https://wa.me/9779761717599" target="_blank">
+            <img src="{% static 'img/whatsapp.png' %}" alt="WhatsApp" class="custom-social-icon">
         </a>
-        <a class="btn btn-social" href="https://m.me/yourpage">
-            <i class="fab fa-facebook-messenger"></i>
+        <a class="custom-btn-social" href="https://m.me/vrindavanmb" target="_blank">
+            <img src="{% static 'img/messenger.png' %}" alt="Messenger" class="custom-social-icon">
+        </a>
+        <a class="custom-btn-social" href="tel:+977057520496" target="_blank">
+            <img src="{% static 'img/phone.png' %}" alt="Phone" class="custom-social-icon">
         </a>
     </div>
 </div>
+
+
+
+{% comment %} <!-- Chat Button and Popup -->
+<div class="chat-container">
+    <!-- Main Chat Icon -->
+    <div class="main-icon-container">
+        <img src="{% static 'img/icon.png' %}" alt="Chat Icon" class="main-icon">
+    </div>
+    
+    <!-- Popup with Social Icons -->
+    <div class="popup-container" id="popup-container">
+        <a href="https://wa.me/9779761717599">
+            <img src="{% static 'img/whatsapp.png' %}" alt="Chat Icon" class="whatsapp-icon social-icon">
+        </a>
+        <a href="https://m.me/vrindavanmb">
+            <img src="{% static 'img/messenger.png' %}" alt="Chat Icon" class="messenger-icon social-icon">
+        </a>
+    </div>
+</div> {% endcomment %}
 
 <!-- JavaScript Libraries -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

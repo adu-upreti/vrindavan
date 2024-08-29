@@ -119,15 +119,14 @@
 
 
 
-// chat feature
-
-document.getElementById('chat-icon').addEventListener('click', function() {
-    var popup = document.getElementById('chat-popup');
+// Chat feature
+document.getElementById('custom-chat-icon').addEventListener('click', function() {
+    var popup = document.getElementById('custom-chat-popup');
     if (popup.style.display === "none" || popup.style.display === "") {
-        popup.style.display = "block";
+        popup.style.display = "flex"; // Use flex display to ensure vertical alignment
+        popup.style.flexDirection = "column"; // Force vertical alignment
     } else {
-        popup.style.display = "none";
+        popup.style.display = "none"; // Hide the popup
     }
 });
-
 

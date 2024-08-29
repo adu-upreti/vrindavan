@@ -3681,6 +3681,8 @@ fieldset:disabled .btn {
   margin-right: 1rem;
   font-size: 1.25rem;
   white-space: nowrap;
+  display: flex;
+  align-items: center; 
 }
 .navbar-nav {
   display: flex;

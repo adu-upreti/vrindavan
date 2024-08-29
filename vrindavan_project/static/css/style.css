@@ -485,58 +485,66 @@ html {
     border-right: none;
 }
 
-
-.chat-container {
+/* Ensure the chat-container is always fixed to the viewport */
+.custom-chat-container {
     position: fixed;
-    bottom: 70px;
-    right: 30px;
+    bottom: -60px;
+    right: 1px;
     z-index: 1000;
+
 }
 
-.chat-icon {
-    background-color: #007bff;
-    color: white;
-    font-size: 30px;
-    padding: 15px;
+/* Main chat icon styling */
+.custom-chat-icon {
+    background-color: #007bf;
+    padding: 1px;
     border-radius: 50%;
     cursor: pointer;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    
 }
 
-.chat-popup {
+.custom-chat-icon-img {
+    width: 180px;  /* Adjust the size as needed */
+    height: 180px;
+    display: block;
+   
+}
+
+/* Chat Popup */
+.custom-chat-popup {
     display: none; /* Hidden by default */
     position: absolute;
-    bottom: 90px; /* Position above the chat icon */
-    right: 0;
+    bottom: 120px; /* Position above the chat icon */
+    right: 25px;
     background-color: white;
     border-radius: 10px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     padding: 10px;
     text-align: center;
+    flex-direction: column;
+    
 }
 
-.chat-popup a {
-    display: inline-block;
+/* Social buttons */
+.custom-btn-social {
+    display: block;
     margin: 10px 0;
-    font-size: 40px;
-    color: #25D366; /* WhatsApp green */
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    text-align: center;
-    line-height: 60px;
     background-color: transparent; /* No background */
-    transition: color 0.3s;
+    transition: transform 0.3s; /* Smooth hover effect */
 }
 
-.chat-popup a:last-child {
-    color: #0078ff; /* Messenger blue */
+/* Social Icons inside buttons */
+.custom-social-icon {
+    width: 100%; /* Make the image fill the button */
+    height: 100%;
+    border-radius: 50%;
 }
 
-.chat-popup a:hover {
-    color: #128C7E; /* Darker WhatsApp green */
-}
-
-.chat-popup a:last-child:hover {
-    color: #0062cc; /* Darker Messenger blue */
+/* Hover effect for social buttons */
+.custom-btn-social:hover {
+    transform: scale(1.1); /* Scale the button on hover */
 }

@@ -109,7 +109,8 @@ html {
 }
 
 .navbar-dark .navbar-brand img {
-    max-height: 60px;
+    max-height: 70px;
+    margin-top: -15px;
     transition: .5s;
 }
 
@@ -483,7 +484,6 @@ html {
     padding-right: 0;
     border-right: none;
 }
-
 
 .chat-container {
     position: fixed;
