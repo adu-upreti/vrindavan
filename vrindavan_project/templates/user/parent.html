@@ -64,8 +64,12 @@
                         <div class="dropdown-menu m-0">
                           <a href="{% url 'userlogout' %}" class="dropdown-item">Logout</a>
                         </div>
-                      </div>                    
+                      </div>
+                      {% else %}
+                      <a href="{% url 'adminlogin' %}" class="nav-item nav-link">Login</a>
                       {% endif %}
+                      
+
                     </div>
               </div>
             </nav>

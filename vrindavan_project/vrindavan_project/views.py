@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from logsign.models import *
+from adminpage.models import Add_Team
 
 def Home(request):
     if request.user.is_authenticated:
@@ -8,11 +9,17 @@ def Home(request):
             full_name = profile.full_name
             first_name = full_name.split(' ')[0]
         except Profile.DoesNotExist:
-            # Handle the case where the profile does not exist
-            first_name = "User"  # Or you can provide a default value or create the Profile
+            first_name = None
     else:
-        first_name = "Guest"
+        first_name = None
 
-    return render(request, 'user/index.html', {'first_name': first_name})
+    team_list = Add_Team.objects.all()
 
+    context = {
+        'teamlist': team_list,
+    }
+    
+    if first_name:
+        context['first_name'] = first_name
 
+    return render(request, 'user/index.html', context)

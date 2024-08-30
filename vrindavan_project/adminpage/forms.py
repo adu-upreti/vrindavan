@@ -11,6 +11,11 @@ class ProductForm(forms.ModelForm):
         model = Products
         fields = '__all__'
 
+class AddteamForm(forms.ModelForm):
+    class Meta:
+        model = Add_Team
+        fields = '__all__'
+
 
 
  

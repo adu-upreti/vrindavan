@@ -1,25 +1,33 @@
+{% load cache %}
 {% include 'user/parent.html' %} {% load static %}
 
-            <div class="container-xxl py-5 bg-dark hero-header mb-5">
-                <div class="container my-5 py-5">
-                    <div class="row align-items-center g-5">
-                        <div class="col-lg-6 text-center text-lg-start">
-                            <h1 class="display-3 text-white animated slideInLeft">Welcome to<br>Vrindavan Misthanna <br>Bhandar</h1>
-                            {% if not user.is_authenticated %}
-                            <a href="{% url 'adminregister' %}" class="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft" 
-                            style="border-radius: 25px;">Login / Sign-Up</a>
-                        {% endif %}
-                        </div>
-                        <div class="col-lg-6 text-center text-lg-end overflow-hidden">
-                            <img class="img-fluid" src="{% static 'img/sweets.png' %}" alt="">
-                        </div>
-                    </div>
-                </div>
+
+<div class="container-xxl py-5 bg-dark hero-header mb-5">
+    <div class="container my-5 py-5">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6 text-center text-lg-start">
+              {% cache 604800 'header_fragment' %}
+                <h1 class="display-3 text-white animated slideInLeft">Welcome to<br>Vrindavan Misthanna <br>Bhandar</h1>
+                {% endcache %}
+                {% if not user.is_authenticated %}
+                <a href="{% url 'adminregister' %}" class="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft" 
+                style="border-radius: 25px;">Sign-Up</a>
+                {% endif %}
             </div>
+            {% cache 604800 'image_fragment' %}
+            <div class="col-lg-6 text-center text-lg-end overflow-hidden">
+                <img class="img-fluid" src="{% static 'img/sweets.png' %}" alt="">
+            </div>
+            {% endcache %}
         </div>
+    </div>
+</div>
+
+
         <!-- Navbar End -->
 
 <!-- About Start -->
+{% cache 604800 'about_fragment' %} 
 <div class="container-xxl py-5">
   <div class="container">
     <div class="row g-5 align-items-center">
@@ -79,6 +87,7 @@
     </div>
   </div>
 </div>
+{% endcache %}
 <!-- About End -->
 
 
@@ -158,86 +167,17 @@
       </h5>
     </div>
     <div class="row g-4">
+    {% for team in teamlist %}
       <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
         <div class="team-item text-center rounded overflow-hidden">
           <div class="rounded-circle overflow-hidden m-4">
-            <img class="img-fluid" src="{% static 'img/team-1.jpg' %}" alt="" />
+            <img class="img-fluid" src="{{ team.image.url }}" alt="{{ team.image.url }}" />
           </div>
-          <h5 class="mb-0">Full Name</h5>
-          <small>Designation</small>
-          <div class="d-flex justify-content-center mt-3">
-            <a class="btn btn-square btn-primary mx-1" href=""
-              ><i class="fab fa-facebook-f"></i
-            ></a>
-            <a class="btn btn-square btn-primary mx-1" href=""
-              ><i class="fab fa-twitter"></i
-            ></a>
-            <a class="btn btn-square btn-primary mx-1" href=""
-              ><i class="fab fa-instagram"></i
-            ></a>
-          </div>
+          <h5 class="mb-0">{{ team.name }}</h5>
+          <small>{{ team.designation }}</small>
         </div>
       </div>
-      <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-        <div class="team-item text-center rounded overflow-hidden">
-          <div class="rounded-circle overflow-hidden m-4">
-            <img class="img-fluid" src="{% static 'img/team-2.jpg' %}" alt="" />
-          </div>
-          <h5 class="mb-0">Full Name</h5>
-          <small>Designation</small>
-          <div class="d-flex justify-content-center mt-3">
-            <a class="btn btn-square btn-primary mx-1" href=""
-              ><i class="fab fa-facebook-f"></i
-            ></a>
-            <a class="btn btn-square btn-primary mx-1" href=""
-              ><i class="fab fa-twitter"></i
-            ></a>
-            <a class="btn btn-square btn-primary mx-1" href=""
-              ><i class="fab fa-instagram"></i
-            ></a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-        <div class="team-item text-center rounded overflow-hidden">
-          <div class="rounded-circle overflow-hidden m-4">
-            <img class="img-fluid" src="{% static 'img/team-3.jpg' %}" alt="" />
-          </div>
-          <h5 class="mb-0">Full Name</h5>
-          <small>Designation</small>
-          <div class="d-flex justify-content-center mt-3">
-            <a class="btn btn-square btn-primary mx-1" href=""
-              ><i class="fab fa-facebook-f"></i
-            ></a>
-            <a class="btn btn-square btn-primary mx-1" href=""
-              ><i class="fab fa-twitter"></i
-            ></a>
-            <a class="btn btn-square btn-primary mx-1" href=""
-              ><i class="fab fa-instagram"></i
-            ></a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-        <div class="team-item text-center rounded overflow-hidden">
-          <div class="rounded-circle overflow-hidden m-4">
-            <img class="img-fluid" src="{% static 'img/team-4.jpg' %}" alt="" />
-          </div>
-          <h5 class="mb-0">Full Name</h5>
-          <small>Designation</small>
-          <div class="d-flex justify-content-center mt-3">
-            <a class="btn btn-square btn-primary mx-1" href=""
-              ><i class="fab fa-facebook-f"></i
-            ></a>
-            <a class="btn btn-square btn-primary mx-1" href=""
-              ><i class="fab fa-twitter"></i
-            ></a>
-            <a class="btn btn-square btn-primary mx-1" href=""
-              ><i class="fab fa-instagram"></i
-            ></a>
-          </div>
-        </div>
-      </div>
+    {% endfor %}
     </div>
   </div>
 </div>

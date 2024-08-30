@@ -10,8 +10,11 @@ import openpyxl
 
 @login_required
 def admin_dashboard(request):
+    team_list = Add_Team.objects.all()
+    
     data = {
-        'dashboard_active_page': 'active'
+        'dashboard_active_page': 'active',
+        'teamlist': team_list,  
     }
     return render(request, "adminfile/dashboard.html", data)
 
@@ -30,7 +33,7 @@ def Product_form(request):
 
     return render(request, "adminfile/add-product.html", {"form": form})
 
-# Update product
+
 @login_required
 def update_product(request, product_id):
     product = get_object_or_404(Products, id=product_id)
@@ -44,7 +47,6 @@ def update_product(request, product_id):
     return render(request, 'adminfile/update_product.html', {'form': form})
 
 
-# Delete single product
 @login_required
 def delete_product(request, product_id):
     product = get_object_or_404(Products, id=product_id)
@@ -53,7 +55,6 @@ def delete_product(request, product_id):
     return redirect('admin_product')
 
 
-# Delete selected products
 @login_required
 def delete_selected_products(request):
     if request.method == 'POST':
@@ -134,20 +135,16 @@ def Userlist(request):
 
 
 def export_users_to_excel(user_list):
-    # Create a workbook and add a worksheet
     workbook = openpyxl.Workbook()
     worksheet = workbook.active
     worksheet.title = 'Users'
 
-    # Define the titles for columns
     columns = ['S.N.', 'Full Name', 'Email', 'Phone Number', 'Location']
     row_num = 1
 
-    # Assign the titles for each cell of the header
     for col_num, column_title in enumerate(columns, 1):
         worksheet.cell(row=row_num, column=col_num, value=column_title)
 
-    # Populate the data for each user
     for index, user in enumerate(user_list, start=1):
         row_num += 1
         worksheet.cell(row=row_num, column=1, value=index)
@@ -156,10 +153,26 @@ def export_users_to_excel(user_list):
         worksheet.cell(row=row_num, column=4, value=user.phone)
         worksheet.cell(row=row_num, column=5, value=user.location)
 
-    # Create an HttpResponse with Excel file content
     response = HttpResponse(
         content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
     )
     response['Content-Disposition'] = 'attachment; filename=users.xlsx'
     workbook.save(response)
     return response
+
+
+
+@login_required
+def AddTeam(request):
+        if request.method == "POST":
+            form = AddteamForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                messages.success(request, "Member is saved successfully!")
+                return redirect('team_form')
+            else:
+                messages.error(request, "There was an error saving the product.")
+        else:
+            form = AddteamForm()
+
+        return render(request, 'adminfile/add-team.html', {'form': form})

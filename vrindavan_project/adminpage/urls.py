@@ -16,10 +16,12 @@ urlpatterns = [
     path('delete-selected-products/',delete_selected_products, name='delete_selected_products'),  
     path('update-product/<int:product_id>/',update_product, name='update_product'),
     path('add-category/',add_cat, name="AddCategory"),
+    path('add-team/', AddTeam, name='team_form')
 
 
 
 ]
 
 if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

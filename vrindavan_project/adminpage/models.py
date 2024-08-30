@@ -19,8 +19,8 @@ class Products(models.Model):
 
  
 
-class CartItem(models.Model):
-    product = models.ForeignKey(Products, on_delete=models.CASCADE)
-    quantity = models.IntegerField(default=1)
-
+class Add_Team(models.Model):
+    name = models.CharField(max_length=1000)
+    image = models.ImageField(upload_to='team/image')
+    designation = models.CharField(max_length=1000)
 

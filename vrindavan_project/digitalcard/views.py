@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.core.cache import cache
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from logsign.models import Profile
@@ -23,31 +24,36 @@ def create_profile_qr_code(user):
     data = f"Name: {profile.full_name}\nLocation: {profile.location}\nPhone: {profile.phone}\nGmail: {profile.user}"
     img = generate_qr_code(data)
     
-    # Define the file path for saving the QR code
+    
     filename = f"{profile.full_name}_qr.png"
     file_path = os.path.join(settings.MEDIA_ROOT, 'qrcodes', filename)
     
-    # Ensure the directory exists
+  
     os.makedirs(os.path.dirname(file_path), exist_ok=True)
     
-    # Save the QR code image
+   
     img.save(file_path)
     
     # Return the relative URL to the image
     return os.path.join('qrcodes', filename)
 
+from django.core.cache import cache
+
 @login_required
 def MyCard(request):
     if request.user.is_authenticated:
-        qr_image_path = create_profile_qr_code(request.user)
-        
-        # Construct the full URL for the image
+        cache_key = f"qr_image_path_{request.user.id}"
+        qr_image_path = cache.get(cache_key)
+
+        if not qr_image_path:
+            qr_image_path = create_profile_qr_code(request.user)
+            cache.set(cache_key, qr_image_path) 
+
         qr_image_url = os.path.join(settings.MEDIA_URL, qr_image_path)
         
-        # Pass the URL to the template
         context = {
             'qr_image_url': qr_image_url,
-            'qr_image_name': qr_image_path.split('/')[-1]  # Extract the image name for download
+            'qr_image_name': qr_image_path.split('/')[-1]
         }
         return render(request, 'user/mycard.html', context)
 

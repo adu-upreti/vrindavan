@@ -1,5 +1,5 @@
 {% include 'user/parent.html' %} {% load static %}
-
+{% load cache %}
 
 <div class="container-xxl py-5 bg-dark hero-header mb-5">
     <div class="container text-center my-5 pt-5 pb-4">
@@ -9,6 +9,7 @@
 </div>
 
         <!-- Menu Start -->
+{% cache 604800 'menu_fragment' %}
         <div class="container-xxl py-5">
             <div class="container">
                 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
@@ -117,6 +118,5 @@
             </div>
         </div>
         <!-- Menu End -->
-        
-
+{% endcache %}
 {% include "user/footer.html" %}

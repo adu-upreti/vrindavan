@@ -87,6 +87,21 @@ DATABASES = {
     }
 }
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/1',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+            'SERIALIZER': 'django_redis.serializers.json.JSONSerializer',
+            'COMPRESSOR': 'django_redis.compressors.zlib.ZlibCompressor',
+            'PASSWORD': '',  
+        },
+        'TIMEOUT': 7 * 24 * 60 * 60,  
+        'KEY_PREFIX': 'vrindavan-project',  
+    }
+}
+
 
 # DATABASES = {
 #     'default': {
