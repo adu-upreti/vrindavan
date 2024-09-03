@@ -1,0 +1,26 @@
+{% extends 'adminfile/ad_parent.html' %}
+{% block contents %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Edit Restaurant Info</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  </head>
+  <body>
+    <div class="container">
+      <h2>Edit Restaurant Information</h2>
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+      </form>
+      <a href="{% url 'admin_dashboard' %}" class="btn btn-secondary mt-3">Cancel</a> <!-- Replace with the correct URL name -->
+    </div>
+  </body>
+</html>
+
+
+{% endblock %}

@@ -24,3 +24,9 @@ class Add_Team(models.Model):
     image = models.ImageField(upload_to='team/image')
     designation = models.CharField(max_length=1000)
 
+class RestaurantInfo(models.Model):
+    description1 = models.TextField("Paragraph 1")
+    description2 = models.TextField("Paragraph 2")
+
+    def __str__(self):
+        return "Restaurant Information"

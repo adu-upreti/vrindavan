@@ -247,6 +247,7 @@ html, body{
 .container .google a {
   display: flex;
   align-items: center;
+  justify-content: center;
   background: white;
   color: rgb(36, 13, 245);
   padding: 10px 20px;
@@ -265,6 +266,8 @@ html, body{
 
 .container .signin {
   padding: 8px 50px;
+  align-items: center;
+  justify-content: center;
   color: rgb(36, 13, 245);
   
 
@@ -272,4 +275,5 @@ html, body{
 
 .container .signin a {
   text-decoration: none;
+  color: rgb(23, 23, 250);
 }

@@ -16,7 +16,10 @@ urlpatterns = [
     path('delete-selected-products/',delete_selected_products, name='delete_selected_products'),  
     path('update-product/<int:product_id>/',update_product, name='update_product'),
     path('add-category/',add_cat, name="AddCategory"),
-    path('add-team/', AddTeam, name='team_form')
+    path('add-team/', AddTeam, name='team_form'),
+    path('delete_team/<int:team_id>/',delete_team, name='delete_team'),
+    path('delete-selected-teams/',delete_selected_teams, name='delete_selected_teams'),  
+    path('edit-aboutus-content/',edit_restaurant_info, name='edit_restaurant_info')
 
 
 

@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from logsign.models import *
-from adminpage.models import Add_Team
+from adminpage.models import Add_Team, RestaurantInfo
+
 
 def Home(request):
     if request.user.is_authenticated:
@@ -14,9 +15,12 @@ def Home(request):
         first_name = None
 
     team_list = Add_Team.objects.all()
+    restaurant_info = RestaurantInfo.objects.first()
+
 
     context = {
         'teamlist': team_list,
+        'restaurant_info': restaurant_info
     }
     
     if first_name:

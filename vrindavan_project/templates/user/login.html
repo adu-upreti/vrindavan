@@ -1,14 +1,16 @@
- {% load static %}
- 
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <meta charset="UTF-8">
-    <title> Responsive Login Form | CodingLab </title>
-    <link rel="stylesheet" href="{% static 'css/login.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <title>Login Form</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
   <body>
     <div class="container">
@@ -16,24 +18,33 @@
         {% csrf_token %}
         <div class="title">Login</div>
         <div class="input-box underline">
-          <input type="email" name="username" placeholder="Enter Your Email" required>  <!-- Changed to 'email' type -->
+          <input
+            type="email"
+            name="username"
+            placeholder="Enter Your Email"
+            required
+          />
+          <!-- Changed to 'email' type -->
           <div class="underline"></div>
         </div>
         <div class="input-box">
-          <input type="password" name="password" placeholder="Enter Your Password" required>
+          <input
+            type="password"
+            name="password"
+            placeholder="Enter Your Password"
+            required
+          />
           <div class="underline"></div>
         </div>
         <div class="input-box button">
-          <input type="submit" value="Continue">
+          <input type="submit" value="Continue" />
         </div>
       </form>
-      <div class="google">
-        <a href="#">
-          Forget my Password
-        </a>
+      <div class="signin" >
+        <a href="{% url 'adminregister' %}" style="padding-left: 16px;">Create account</a>
       </div>
       <div class="signin">
-        <a href="{% url 'adminregister' %}">Create account</a>  <!-- Updated to 'Create account' -->
+        <a href="{% url 'password_reset' %}">Forget my Password </a>
       </div>
     </div>
   </body>

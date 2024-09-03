@@ -1,33 +1,35 @@
-{% load cache %}
-{% include 'user/parent.html' %} {% load static %}
-
+{% load cache %} {% include 'user/parent.html' %} {% load static %}
 
 <div class="container-xxl py-5 bg-dark hero-header mb-5">
-    <div class="container my-5 py-5">
-        <div class="row align-items-center g-5">
-            <div class="col-lg-6 text-center text-lg-start">
-              {% cache 604800 'header_fragment' %}
-                <h1 class="display-3 text-white animated slideInLeft">Welcome to<br>Vrindavan Misthanna <br>Bhandar</h1>
-                {% endcache %}
-                {% if not user.is_authenticated %}
-                <a href="{% url 'adminregister' %}" class="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft" 
-                style="border-radius: 25px;">Sign-Up</a>
-                {% endif %}
-            </div>
-            {% cache 604800 'image_fragment' %}
-            <div class="col-lg-6 text-center text-lg-end overflow-hidden">
-                <img class="img-fluid" src="{% static 'img/sweets.png' %}" alt="">
-            </div>
-            {% endcache %}
-        </div>
+  <div class="container my-5 py-5">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6 text-center text-lg-start">
+        {% cache 604800 'header_fragment' %}
+        <h1 class="display-3 text-white animated slideInLeft">
+          Welcome to<br />Vrindavan Misthanna <br />Bhandar
+        </h1>
+        {% endcache %} {% if not user.is_authenticated %}
+        <a
+          href="{% url 'adminregister' %}"
+          class="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft"
+          style="border-radius: 25px"
+          >Sign-Up</a
+        >
+        {% endif %}
+      </div>
+      {% cache 604800 'image_fragment' %}
+      <div class="col-lg-6 text-center text-lg-end overflow-hidden">
+        <img class="img-fluid" src="{% static 'img/sweets.png' %}" alt="" />
+      </div>
+      {% endcache %}
     </div>
+  </div>
 </div>
 
-
-        <!-- Navbar End -->
+<!-- Navbar End -->
 
 <!-- About Start -->
-{% cache 604800 'about_fragment' %} 
+{% cache 300 'about_fragment' %}
 <div class="container-xxl py-5">
   <div class="container">
     <div class="row g-5 align-items-center">
@@ -64,32 +66,23 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-6" >
+      <div class="col-lg-6">
         <h5
           class="section-title ff-secondary text-start text-primary fw-normal"
         >
           About Us
         </h5>
-        <h1 class="mb-4">Prem Pranam,</h1>
-        <p class="mb-4">
-          Hetauda's premier pure vegetarian restaurant. Situated conveniently on
-          the main road, we specialize in authentic Indian vegetarian cuisine,
-          featuring both North and South Indian delicacies. Whether you're
-          dining in or ordering out, we guarantee the highest quality in every
-          dish.
-        </p>
-        <p class="mb-4">
-          Don't miss our Vrindavan Misthanna Bhandar, where we serve a wide
-          array of traditional Indian sweets. Join us for an exceptional
-          vegetarian dining experience.
-        </p>
+        <h1 class="mb-4">Prem Pranam ji,</h1>
+        {% with info=restaurant_info %}
+        <p class="mb-4">{{ info.description1 }}hello</p>
+        <p class="mb-4">{{ info.description2 }}</p>
+        {% endwith %}
       </div>
     </div>
   </div>
 </div>
 {% endcache %}
 <!-- About End -->
-
 
 <!-- Service Start -->
 <div class="container-xxl py-5">
@@ -157,7 +150,6 @@
 </div>
 <!-- Service End -->
 
-
 <!-- Team Start -->
 <div class="container-xxl pt-5 pb-3">
   <div class="container">
@@ -167,21 +159,24 @@
       </h5>
     </div>
     <div class="row g-4">
-    {% for team in teamlist %}
+      {% for team in teamlist %}
       <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
         <div class="team-item text-center rounded overflow-hidden">
           <div class="rounded-circle overflow-hidden m-4">
-            <img class="img-fluid" src="{{ team.image.url }}" alt="{{ team.image.url }}" />
+            <img
+              class="img-fluid"
+              src="{{ team.image.url }}"
+              alt="{{ team.image.url }}"
+            />
           </div>
           <h5 class="mb-0">{{ team.name }}</h5>
           <small>{{ team.designation }}</small>
         </div>
       </div>
-    {% endfor %}
+      {% endfor %}
     </div>
   </div>
 </div>
 <!-- Team End -->
-
 
 {% include 'user/footer.html' %}

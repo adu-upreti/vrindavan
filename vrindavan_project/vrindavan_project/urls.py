@@ -26,6 +26,7 @@ urlpatterns = [
     path('mycard/', include('digitalcard.urls')),
     path('account/', include('logsign.urls')),
     path('admin-dashboard/', include('adminpage.urls')),
+    path('password_reset/', include('resetpassword.urls')),
     path('', Home, name='user_dashboard'),
 ]
 

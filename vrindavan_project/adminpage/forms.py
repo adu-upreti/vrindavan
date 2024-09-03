@@ -16,6 +16,15 @@ class AddteamForm(forms.ModelForm):
         model = Add_Team
         fields = '__all__'
 
+class RestaurantInfoForm(forms.ModelForm):
+    class Meta:
+        model = RestaurantInfo
+        fields = ['description1', 'description2']
+        widgets = {
+            'description1': forms.Textarea(attrs={'class': 'form-control', 'rows': 5}),
+            'description2': forms.Textarea(attrs={'class': 'form-control', 'rows': 5}),
+        }
+
 
 
  

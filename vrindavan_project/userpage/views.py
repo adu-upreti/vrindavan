@@ -23,3 +23,6 @@ def Menu(request):
     }
 
     return render(request, "user/menu.html", data)
+
+
+

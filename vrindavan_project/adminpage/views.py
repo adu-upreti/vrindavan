@@ -6,6 +6,7 @@ from django.db.models import Q
 from .forms import *
 from .models import *
 from logsign.models import *
+from .forms import RestaurantInfoForm
 import openpyxl
 
 @login_required
@@ -176,3 +177,36 @@ def AddTeam(request):
             form = AddteamForm()
 
         return render(request, 'adminfile/add-team.html', {'form': form})
+
+@login_required
+def delete_team(request, team_id):
+    team = get_object_or_404(Add_Team, id=team_id)
+    team.delete()
+    messages.success(request, 'Member has been deleted successfully.')
+    return redirect('admin_dashboard')
+
+
+@login_required
+def delete_selected_teams(request):
+    if request.method == 'POST':
+        selected_teams = request.POST.getlist('selected_teams')
+        if selected_teams:
+            Add_Team.objects.filter(id__in=selected_teams).delete()
+            messages.success(request, 'Selected members have been deleted successfully.')
+        else:
+            messages.error(request, 'No members were selected for deletion.')
+    return redirect('admin_dashboard')
+
+@login_required
+def edit_restaurant_info(request):
+    info = RestaurantInfo.objects.first()
+
+    if request.method == 'POST':
+        form = RestaurantInfoForm(request.POST, instance=info)
+        if form.is_valid():
+            form.save()
+            return redirect('admin_dashboard') 
+    else:
+        form = RestaurantInfoForm(instance=info)
+
+    return render(request, 'adminfile/about-us-content.html', {'form': form})
