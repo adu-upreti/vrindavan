@@ -15,6 +15,7 @@ from django.utils.encoding import force_bytes, force_str
 from django.template.loader import render_to_string
 from django.contrib.sites.shortcuts import get_current_site
 from django.conf import settings
+from .forms import PasswordResetRequestForm
 
 UserModel = get_user_model()
 
@@ -22,6 +23,7 @@ class CustomPasswordResetView(PasswordResetView):
     template_name = 'user/password_reset_form.html'
     email_template_name = 'user/password_reset_email.html'
     success_url = '/password_reset_done/'
+    form_class = PasswordResetRequestForm
 
 class CustomPasswordResetConfirmView(PasswordResetConfirmView):
     template_name = 'user/password_reset_confirm.html'
