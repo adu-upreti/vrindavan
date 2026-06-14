@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menu | Vrindavan Misthanna Bhandar — Pure Veg Restaurant Hetauda</title>
+  <meta name="description" content="Explore our full vegetarian menu — Khana Sets, Momo, Biryani, Curry, Chinese, Snacks, Sweets and more at Vrindavan Misthanna Bhandar, Hetauda." />
+  <meta name="theme-color" content="#1a7a2e" />
+  <link rel="icon" type="image/png" href="assets/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;900&family=Inter:wght@300;400;500;600&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/menu.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="assets/logo.png" alt="Vrindavan Misthanna Bhandar Logo" />
+        <div class="nav-brand">
+          <span class="brand-main">Vrindavan</span>
+          <span class="brand-sub">Misthanna Bhandar</span>
+        </div>
+      </a>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div class="nav-overlay" id="navOverlay"></div>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="review.html">Reviews</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li class="nav-cta-wrap"><a href="tel:9761717599" class="nav-cta">📞 Call Now</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <section class="page-hero">
+    <div class="page-hero-inner">
+      <span class="section-eyebrow">Pure Vegetarian</span>
+      <h1>Our Food Menu</h1>
+      <p>Every dish made fresh — rooted in Indian tradition, served with heart</p>
+    </div>
+  </section>
+
+  <!-- FILTER TABS -->
+  <section class="menu-filter-bar">
+    <div class="filter-container">
+      <div class="filter-scroll">
+        <button class="filter-btn active" data-cat="all">All</button>
+        <button class="filter-btn" data-cat="breakfast">🌅 Breakfast</button>
+        <button class="filter-btn" data-cat="khana">🍽️ Khana Set</button>
+        <button class="filter-btn" data-cat="khaja">🥗 Khaja Set</button>
+        <button class="filter-btn" data-cat="momo">🥟 Mo:Mo</button>
+        <button class="filter-btn" data-cat="curry">🥘 Curry</button>
+        <button class="filter-btn" data-cat="chinese">🍜 Chinese</button>
+        <button class="filter-btn" data-cat="biryani">🍚 Biryani &amp; Rice</button>
+        <button class="filter-btn" data-cat="snacks">🧆 Snacks</button>
+        <button class="filter-btn" data-cat="pizza">🍕 Pizza &amp; More</button>
+        <button class="filter-btn" data-cat="roti">🫓 Roti &amp; Paratha</button>
+        <button class="filter-btn" data-cat="soup">🍲 Soup</button>
+        <button class="filter-btn" data-cat="chat">🫙 Chat</button>
+        <button class="filter-btn" data-cat="healthy">🥦 Healthy Bites</button>
+        <button class="filter-btn" data-cat="beverages">☕ Beverages</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU SECTIONS -->
+  <main class="menu-main">
+    <div class="menu-container">
+
+      <!-- BREAKFAST -->
+      <section class="menu-section" id="breakfast" data-category="breakfast">
+        <div class="ms-header">
+          <span class="ms-icon">🌅</span>
+          <h2>Breakfast</h2>
+          <p>Start your day right</p>
+        </div>
+        <div class="menu-grid">
+          <div class="menu-item"><span class="mi-name">Samosa Bhaji</span><span class="mi-price">Rs. 100</span></div>
+          <div class="menu-item"><span class="mi-name">Puri Bhaji</span><span class="mi-price">Rs. 120</span></div>
+          <div class="menu-item"><span class="mi-name">Chole Bhature</span><span class="mi-price">Rs. 200</span></div>
+          <div class="menu-item"><span class="mi-name">Plain Toast Bread (1 pc)</span><span class="mi-price">Rs. 25</span></div>
+          <div class="menu-item"><span class="mi-name">Butter Toast Bread (1 pc)</span><span class="mi-price">Rs. 40</span></div>
+          <div class="menu-item"><span class="mi-name">Toast with Cheese (1 pc)</span><span class="mi-price">Rs. 120</span></div>
+        </div>
+      </section>
+
+      <!-- KHANA SET -->
+      <section class="menu-section" id="khana" data-category="khana">
+        <div class="ms-header">
+          <span class="ms-icon">🍽️</span>
+          <h2>Khana Set</h2>
+          <p>Full thali meals served fresh</p>
+        </div>
+        <div class="menu-grid set-grid">
+          <div class="menu-item set-item featured-item">
+            <div class="set-top">
+              <span class="mi-name">Veg Khana Set</span>
+              <span class="mi-price">Rs. 250</span>
+            </div>
+            <p class="set-desc">Rice, Dal, Vegetable Curry, Achar, Salad, Papad, Saag, Bhujiya</p>
+          </div>
+          <div class="menu-item set-item featured-item">
+            <div class="set-badge">Special</div>
+            <div class="set-top">
+              <span class="mi-name">Special Khana Set</span>
+              <span class="mi-price">Rs. 380</span>
+            </div>
+            <p class="set-desc">Rice, Dal, Vegetable Curry, Achar, Salad, Papad, Saag, Bhujiya, Matar Paneer, Dahi</p>
+          </div>
+          <div class="menu-item set-item featured-item">
+            <div class="set-badge satvik">Satvik</div>
+            <div class="set-top">
+              <span class="mi-name">Sadwik Khana Set</span>
+              <span class="mi-price">Rs. 380</span>
+            </div>
+            <p class="set-desc">All items without Garlic and Onion</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- KHAJA SET -->
+      <section class="menu-section" id="khaja" data-category="khaja">
+        <div class="ms-header">
+          <span class="ms-icon">🥗</span>
+          <h2>Khaja Set</h2>
+          <p>Light snack platters — perfect for afternoon</p>
+        </div>
+        <div class="menu-grid set-grid">
+          <div class="menu-item set-item featured-item">
+            <div class="set-top">
+              <span class="mi-name">Veg Khaja Set</span>
+              <span class="mi-price">Rs. 250</span>
+            </div>
+            <p class="set-desc">Alu Jira, Peanut Sadheko, Bodi Fry, Salad, Bhuja-Chiura, Papad, Pickle</p>
+          </div>
+          <div class="menu-item set-item featured-item">
+            <div class="set-badge">Special</div>
+            <div class="set-top">
+              <span class="mi-name">Special Khaja Set</span>
+              <span class="mi-price">Rs. 300</span>
+            </div>
+            <p class="set-desc">Alu Jira, Peanut Sadheko, Bodi Fry, Salad, Bhuja-Chiura, Papad, Pickle, Paneer Chilly, Pakauda</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- MOMO -->
+      <section class="menu-section" id="momo" data-category="momo">
+        <div class="ms-header">
+          <span class="ms-icon">🥟</span>
+          <h2>Mo:Mo</h2>
+          <p>Dumplings done 5 ways — pick your style</p>
+        </div>
+        <div class="momo-table-wrap">
+          <table class="momo-table">
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Steam</th>
+                <th>Fry</th>
+                <th>Kothey</th>
+                <th>Soup</th>
+                <th>Chilly</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="type-cell">🌿 Veg</td>
+                <td>Rs. 140</td>
+                <td>Rs. 160</td>
+                <td>Rs. 190</td>
+                <td>Rs. 170</td>
+                <td>Rs. 200</td>
+              </tr>
+              <tr>
+                <td class="type-cell">🧀 Paneer</td>
+                <td>Rs. 220</td>
+                <td>Rs. 260</td>
+                <td>Rs. 290</td>
+                <td>Rs. 270</td>
+                <td>Rs. 300</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- CURRY -->
+      <section class="menu-section" id="curry" data-category="curry">
+        <div class="ms-header">
+          <span class="ms-icon">🥘</span>
+          <h2>Curry Items</h2>
+          <p>Rich, flavourful gravies</p>
+        </div>
+        <div class="menu-grid">
+          <div class="menu-item"><span class="mi-name">Dal Fry</span><span class="mi-price">Rs. 200</span></div>
+          <div class="menu-item"><span class="mi-name">Dal Tadka</span><span class="mi-price">Rs. 220</span></div>
+          <div class="menu-item"><span class="mi-name">Butter Dal Fry</span><span class="mi-price">Rs. 240</span></div>
+          <div class="menu-item"><span class="mi-name">Mix Veg</span><span class="mi-price">Rs. 250</span></div>
+          <div class="menu-item"><span class="mi-name">Gobi Alu</span><span class="mi-price">Rs. 250</span></div>
+          <div class="menu-item"><span class="mi-name">Alu Matar</span><span class="mi-price">Rs. 250</span></div>
+          <div class="menu-item"><span class="mi-name">Chana Masala</span><span class="mi-price">Rs. 320</span></div>
+          <div class="menu-item"><span class="mi-name">Rajma Masala</span><span class="mi-price">Rs. 340</span></div>
+          <div class="menu-item"><span class="mi-name">Mushroom Curry</span><span class="mi-price">Rs. 380</span></div>
+          <div class="menu-item"><span class="mi-name">Palak Paneer</span><span class="mi-price">Rs. 380</span></div>
+          <div class="menu-item"><span class="mi-name">Paneer Butter Masala</span><span class="mi-price">Rs. 400</span></div>
+          <div class="menu-item"><span class="mi-name">Paneer Kadai</span><span class="mi-price">Rs. 380</span></div>
+          <div class="menu-item"><span class="mi-name">Rajma Paneer</span><span class="mi-price">Rs. 380</span></div>
+          <div class="menu-item"><span class="mi-name">Matar Paneer</span><span class="mi-price">Rs. 380</span></div>
+          <div class="menu-item"><span class="mi-name">Sahi Paneer</span><span class="mi-price">Rs. 480</span></div>
+          <div class="menu-item"><span class="mi-name">Kaju Curry</span><span class="mi-price">Rs. 600</span></div>
+        </div>
+      </section>
+
+      <!-- CHINESE -->
+      <section class="menu-section" id="chinese" data-category="chinese">
+        <div class="ms-header">
+          <span class="ms-icon">🍜</span>
+          <h2>Chinese</h2>
+          <p>Indo-Chinese favourites</p>
+        </div>
+        <div class="menu-grid">
+          <div class="menu-item"><span class="mi-name">Veg Chowmin</span><span class="mi-price">Rs. 120</span></div>
+          <div class="menu-item"><span class="mi-name">Mix Chowmin</span><span class="mi-price">Rs. 180</span></div>
+          <div class="menu-item"><span class="mi-name">Veg Thupka</span><span class="mi-price">Rs. 150</span></div>
+          <div class="menu-item"><span class="mi-name">Mix Thupka</span><span class="mi-price">Rs. 180</span></div>
+          <div class="menu-item"><span class="mi-name">Honey Chilly Potato</span><span class="mi-price">Rs. 250</span></div>
+          <div class="menu-item"><span class="mi-name">Veg Munchurian</span><span class="mi-price">Rs. 250</span></div>
+          <div class="menu-item"><span class="mi-name">Paneer Munchurian</span><span class="mi-price">Rs. 320</span></div>
+          <div class="menu-item"><span class="mi-name">Mushroom Chilly</span><span class="mi-price">Rs. 300</span></div>
+          <div class="menu-item"><span class="mi-name">Paneer Chilly</span><span class="mi-price">Rs. 320</span></div>
+          <div class="menu-item"><span class="mi-name">Mushroom Choila</span><span class="mi-price">Rs. 280</span></div>
+        </div>
+      </section>
+
+      <!-- BIRYANI & RICE -->
+      <section class="menu-section" id="biryani" data-category="biryani">
+        <div class="ms-header">
+          <span class="ms-icon">🍚</span>
+          <h2>Biryani &amp; Rice</h2>
+          <p>Fragrant rice dishes</p>
+        </div>
+        <div class="menu-grid">
+          <div class="menu-item"><span class="mi-name">Plain Rice</span><span class="mi-price">Rs. 150</span></div>
+          <div class="menu-item"><span class="mi-name">Jerra Rice</span><span class="mi-price">Rs. 190</span></div>
+          <div class="menu-item"><span class="mi-name">Garlic Rice</span><span class="mi-price">Rs. 200</span></div>
+          <div class="menu-item"><span class="mi-name">Veg Fry Rice</span><span class="mi-price">Rs. 220</span></div>
+          <div class="menu-item"><span class="mi-name">Mix Fry Rice</span><span class="mi-price">Rs. 300</span></div>
+          <div class="menu-item"><span class="mi-name">Veg Biryani</span><span class="mi-price">Rs. 400</span></div>
+          <div class="menu-item signature"><span class="sig-label">Signature</span><span class="mi-name">Vrindavan Dum Biryani</span><span class="mi-price">Rs. 480</span></div>
+        </div>
+      </section>
+
+      <!-- SNACKS -->
+      <section class="menu-section" id="snacks" data-category="snacks">
+        <div class="ms-header">
+          <span class="ms-icon">🧆</span>
+          <h2>Snacks</h2>
+          <p>Crispy bites &amp; savory treats</p>
+        </div>
+        <div class="menu-grid">
+          <div class="menu-item"><span class="mi-name">Chau Chau Sadheko</span><span class="mi-price">Rs. 150</span></div>
+          <div class="menu-item"><span class="mi-name">Peanut Sadheko</span><span class="mi-price">Rs. 180</span></div>
+          <div class="menu-item"><span class="mi-name">Mushroom Sadheko</span><span class="mi-price">Rs. 220</span></div>
+          <div class="menu-item"><span class="mi-name">Alu Jira</span><span class="mi-price">Rs. 180</span></div>
+          <div class="menu-item"><span class="mi-name">Veg Pakauda</span><span class="mi-price">Rs. 150</span></div>
+          <div class="menu-item"><span class="mi-name">Onion Pakauda</span><span class="mi-price">Rs. 200</span></div>
+          <div class="menu-item"><span class="mi-name">French Fry</span><span class="mi-price">Rs. 180</span></div>
+          <div class="menu-item"><span class="mi-name">Mustang Aloo</span><span class="mi-price">Rs. 200</span></div>
+          <div class="menu-item"><span class="mi-name">Mushroom Pakoda (Oyster)</span><span class="mi-price">Rs. 200</span></div>
+          <div class="menu-item"><span class="mi-name">Paneer Pakaoda</span><span class="mi-price">Rs. 280</span></div>
+          <div class="menu-item"><span class="mi-name">Paneer Kathi Roll</span><span class="mi-price">Rs. 250</span></div>
+          <div class="menu-item"><span class="mi-name">Magi / Wai Wai Soup</span><span class="mi-price">Rs. 200</span></div>
+        </div>
+      </section>
+
+      <!-- PIZZA, BURGER & SANDWICH -->
+      <section class="menu-section" id="pizza" data-category="pizza">
+        <div class="ms-header">
+          <span class="ms-icon">🍕</span>
+          <h2>Pizza, Burger &amp; Sandwich</h2>
+          <p>Fast food with a veg twist</p>
+        </div>
+        <div class="menu-grid">
+          <div class="menu-item"><span class="mi-name">Veg Pizza</span><span class="mi-price">Rs. 350</span></div>
+          <div class="menu-item"><span class="mi-name">Cheese Pizza</span><span class="mi-price">Rs. 370</span></div>
+          <div class="menu-item"><span class="mi-name">Mix Pizza</span><span class="mi-price">Rs. 450</span></div>
+          <div class="menu-item"><span class="mi-name">Add Extra Cheese</span><span class="mi-price">Rs. 50</span></div>
+          <div class="menu-item"><span class="mi-name">Veg Burger</span><span class="mi-price">Rs. 160</span></div>
+          <div class="menu-item"><span class="mi-name">Paneer Burger</span><span class="mi-price">Rs. 220</span></div>
+          <div class="menu-item"><span class="mi-name">Veg Sandwich</span><span class="mi-price">Rs. 150</span></div>
+          <div class="menu-item"><span class="mi-name">Paneer Sandwich</span><span class="mi-price">Rs. 250</span></div>
+        </div>
+      </section>
+
+      <!-- ROTI & PARATHA -->
+      <section class="menu-section" id="roti" data-category="roti">
+        <div class="ms-header">
+          <span class="ms-icon">🫓</span>
+          <h2>Roti, Paratha &amp; Papad</h2>
+          <p>Freshly made breads</p>
+        </div>
+        <div class="menu-grid">
+          <div class="menu-item"><span class="mi-name">Tawa Roti</span><span class="mi-price">Rs. 20</span></div>
+          <div class="menu-item"><span class="mi-name">Butter Roti</span><span class="mi-price">Rs. 40</span></div>
+          <div class="menu-item"><span class="mi-name">Laccha Paratha</span><span class="mi-price">Rs. 130</span></div>
+          <div class="menu-item"><span class="mi-name">Alu Paratha</span><span class="mi-price">Rs. 150</span></div>
+          <div class="menu-item"><span class="mi-name">Paneer Paratha</span><span class="mi-price">Rs. 200</span></div>
+          <div class="menu-item"><span class="mi-name">Dry Papad</span><span class="mi-price">Rs. 30</span></div>
+          <div class="menu-item"><span class="mi-name">Fry Papad</span><span class="mi-price">Rs. 40</span></div>
+          <div class="menu-item"><span class="mi-name">Masala Papad</span><span class="mi-price">Rs. 100</span></div>
+          <div class="menu-item"><span class="mi-name">Green Salad</span><span class="mi-price">Rs. 180</span></div>
+        </div>
+      </section>
+
+      <!-- SOUP -->
+      <section class="menu-section" id="soup" data-category="soup">
+        <div class="ms-header">
+          <span class="ms-icon">🍲</span>
+          <h2>Soup Items</h2>
+          <p>Warm &amp; comforting bowls</p>
+        </div>
+        <div class="menu-grid">
+          <div class="menu-item"><span class="mi-name">Tomato Soup</span><span class="mi-price">Rs. 150</span></div>
+          <div class="menu-item"><span class="mi-name">Veg Hot &amp; Sour Soup</span><span class="mi-price">Rs. 150</span></div>
+          <div class="menu-item"><span class="mi-name">Mixed Vegetable Soup</span><span class="mi-price">Rs. 180</span></div>
+          <div class="menu-item"><span class="mi-name">Mushroom Soup</span><span class="mi-price">Rs. 150</span></div>
+        </div>
+      </section>
+
+      <!-- CHAT -->
+      <section class="menu-section" id="chat" data-category="chat">
+        <div class="ms-header">
+          <span class="ms-icon">🫙</span>
+          <h2>Chat Items</h2>
+          <p>Street-style chaat favourites</p>
+        </div>
+        <div class="menu-grid">
+          <div class="menu-item"><span class="mi-name">Samosa Chat</span><span class="mi-price">Rs. 120</span></div>
+          <div class="menu-item"><span class="mi-name">Mix Chat</span><span class="mi-price">Rs. 180</span></div>
+          <div class="menu-item"><span class="mi-name">Papdi Chat</span><span class="mi-price">Rs. 150</span></div>
+        </div>
+      </section>
+
+      <!-- HEALTHY BITES -->
+      <section class="menu-section" id="healthy" data-category="healthy">
+        <div class="ms-header">
+          <span class="ms-icon">🥦</span>
+          <h2>Healthy Bites</h2>
+          <p>Nutritious &amp; wholesome choices</p>
+        </div>
+        <div class="menu-grid">
+          <div class="menu-item"><span class="mi-name">Mixed Fruit Raita</span><span class="mi-price">Rs. 200</span></div>
+          <div class="menu-item"><span class="mi-name">Boiled Vegetables</span><span class="mi-price">Rs. 200</span></div>
+          <div class="menu-item"><span class="mi-name">Tawa Roti with Curd / Sabji</span><span class="mi-price">Rs. 120</span></div>
+          <div class="menu-item"><span class="mi-name">Boiled Sweet Corn &amp; Vegetables</span><span class="mi-price">Rs. 300</span></div>
+          <div class="menu-item"><span class="mi-name">Fruit Salad (Medium)</span><span class="mi-price">Rs. 300</span></div>
+          <div class="menu-item"><span class="mi-name">Fruit Salad (Large)</span><span class="mi-price">Rs. 450</span></div>
+          <div class="menu-item"><span class="mi-name">Fresh Mixed Juice</span><span class="mi-price">Rs. 250</span></div>
+          <div class="menu-item"><span class="mi-name">Plain Hot Milk</span><span class="mi-price">Rs. 100</span></div>
+        </div>
+      </section>
+
+      <!-- BEVERAGES -->
+      <section class="menu-section" id="beverages" data-category="beverages">
+        <div class="ms-header">
+          <span class="ms-icon">☕</span>
+          <h2>Beverages</h2>
+          <p>Hot &amp; cold drinks to refresh you</p>
+        </div>
+        <div class="bev-two-col">
+          <div>
+            <h3 class="bev-subhead">🔥 Hot Beverages</h3>
+            <div class="menu-grid bev-grid">
+              <div class="menu-item"><span class="mi-name">Black / Lemon Tea</span><span class="mi-price">Rs. 30</span></div>
+              <div class="menu-item"><span class="mi-name">Milk Tea</span><span class="mi-price">Rs. 50</span></div>
+              <div class="menu-item"><span class="mi-name">Masala Milk Tea</span><span class="mi-price">Rs. 60</span></div>
+              <div class="menu-item"><span class="mi-name">Black Coffee</span><span class="mi-price">Rs. 80</span></div>
+              <div class="menu-item"><span class="mi-name">Milk Coffee</span><span class="mi-price">Rs. 160</span></div>
+              <div class="menu-item"><span class="mi-name">Hot Lemon</span><span class="mi-price">Rs. 50</span></div>
+              <div class="menu-item"><span class="mi-name">Hot Lemon with Honey</span><span class="mi-price">Rs. 100</span></div>
+            </div>
+          </div>
+          <div>
+            <h3 class="bev-subhead">❄️ Cold Beverages</h3>
+            <div class="menu-grid bev-grid">
+              <div class="menu-item"><span class="mi-name">Cold Drinks</span><span class="mi-price">Rs. 80</span></div>
+              <div class="menu-item"><span class="mi-name">Real Mix Juice</span><span class="mi-price">Rs. 100</span></div>
+              <div class="menu-item"><span class="mi-name">Cold Coffee</span><span class="mi-price">Rs. 200</span></div>
+              <div class="menu-item"><span class="mi-name">Butter Milk</span><span class="mi-price">Rs. 100</span></div>
+              <div class="menu-item"><span class="mi-name">Sweet Lassi</span><span class="mi-price">Rs. 180</span></div>
+              <div class="menu-item signature"><span class="sig-label">Special</span><span class="mi-name">Vrindavan Lassi</span><span class="mi-price">Rs. 220</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /menu-container -->
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <img src="assets/logo.png" alt="Vrindavan Logo" />
+        <p>Pure Vegetarian food served with love, every day in Hetauda.</p>
+        <div class="footer-socials">
+          <a href="https://www.facebook.com/vrindavanmb/" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/vrindavanmb/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="https://wa.me/9779761717599" target="_blank" rel="noopener" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="menu.html">Menu</a></li>
+          <li><a href="review.html">Reviews</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h4>Contact Us</h4>
+        <p>📍 Opposite Narayani Mall,<br>Hetauda Main Road, Nepal 44100</p>
+        <p>📞 <a href="tel:057520496">057-520496</a></p>
+        <p>📱 <a href="tel:9761717599">9761717599</a></p>
+        <p>✉️ <a href="mailto:vrindavanmb@gmail.com">vrindavanmb@gmail.com</a></p>
+        <p>🕐 6:00 AM – 11:00 PM Daily</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Vrindavan Misthanna Bhandar. All rights reserved. | Hetauda, Nepal</p>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/9779761717599" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    <span class="wa-tooltip">Chat on WhatsApp</span>
+  </a>
+
+  <script src="js/menu.js"></script>
+</body>
+</html>
