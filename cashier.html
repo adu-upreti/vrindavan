@@ -1,11 +1,564 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<!-- If you change API_URL, update connect-src below to match. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src https://tihar-voucher-api.yaduupretti8.workers.dev; base-uri 'none'; form-action 'none'">
+<link rel="icon" href="data:,">
+<title>Tihar Voucher Cashier</title>
+<style>
+:root{--bg:#faf8f5;--surface:#fff;--ink:#1f1b16;--muted:#6b645b;--line:#e8e2d9;--gold:#e39a12;--gold-soft:#fdf3dc;--maroon:#7a1f2b;--ok:#17784a;--ok-bg:#e7f5ee;--warn:#8a5200;--warn-bg:#fff2d9;--bad:#b3261e;--bad-bg:#fdecea;--info:#2b5c8a;--info-bg:#e8f1f9;--shadow:0 1px 2px rgba(31,27,22,.05),0 6px 20px rgba(31,27,22,.06);--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.banner{position:sticky;top:0;z-index:10;background:repeating-linear-gradient(135deg,#1f1b16 0 14px,#2e2721 14px 28px);color:#ffd23f;text-align:center;padding:12px 14px;font-weight:800;font-size:1.05rem;letter-spacing:.02em;border-bottom:3px solid #ffd23f}
+.banner small{display:block;font-weight:600;font-size:.82rem;color:#fff}
+header{background:var(--surface);border-bottom:1px solid var(--line)}
+header::before{content:"";display:block;height:4px;background:linear-gradient(90deg,var(--gold),var(--maroon))}
+.bar{max-width:1120px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand h1{margin:0;font-size:1.15rem;letter-spacing:-.01em}
+.brand p{margin:0;color:var(--muted);font-size:.85rem}
+.badge{padding:6px 14px;border-radius:999px;font-weight:800;font-size:.9rem;background:#ffd23f;color:#1f1b16;border:2px solid #1f1b16}
+main{max-width:1120px;margin:0 auto;padding:20px;display:grid;grid-template-columns:320px 1fr;gap:20px;align-items:start}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:20px}
+.card h2{margin:0 0 4px;font-size:1.05rem}
+.sub{margin:0 0 14px;color:var(--muted);font-size:.9rem}
+.stack{display:grid;gap:16px}
+.step.locked{opacity:.5}
+label,legend{display:block;font-weight:600;font-size:.9rem;margin:12px 0 6px;padding:0}
+input{width:100%;font:inherit;padding:12px 14px;border:1px solid #cfc7ba;border-radius:10px;background:#fff;color:var(--ink)}
+input[aria-invalid=true]{border-color:var(--bad);box-shadow:0 0 0 1px var(--bad)}
+input:focus-visible,button:focus-visible,#resultOut:focus-visible{outline:3px solid #f1c35e;outline-offset:2px}
+input:disabled{background:#f3f0ea;color:var(--muted)}
+.big{font:600 1.5rem/1.2 var(--mono);padding:16px;letter-spacing:.04em;text-transform:uppercase}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+button{font:inherit;font-weight:700;padding:12px 18px;border-radius:10px;border:1px solid transparent;cursor:pointer;min-height:46px}
+.primary{background:var(--maroon);color:#fff}.primary:hover:not(:disabled){background:#621824}
+.gold{background:var(--gold);color:#2a1c00}.gold:hover:not(:disabled){background:#cf8a0c}
+.ghost{background:#fff;border-color:#cfc7ba;color:var(--ink)}.ghost:hover:not(:disabled){background:#f6f2ea}
+button:disabled{opacity:.55;cursor:not-allowed}
+.grow{flex:1}
+.status{display:flex;align-items:center;gap:8px;font-size:.9rem;margin:0}
+.dot{width:10px;height:10px;border-radius:50%;background:#b8b0a4;flex:none}
+.dot.ok{background:var(--ok)}.dot.bad{background:var(--bad)}.dot.busy{background:var(--gold);animation:pulse 1s infinite}
+@keyframes pulse{50%{opacity:.3}}
+@media (prefers-reduced-motion:reduce){.dot.busy{animation:none}}
+.msg{margin-top:14px;padding:12px 14px;border-radius:10px;font-size:.95rem;border:1px solid transparent;overflow-wrap:anywhere}
+.msg strong{display:block;margin-bottom:2px}
+.msg.ok{background:var(--ok-bg);color:var(--ok);border-color:#bfe3d0}
+.msg.warn{background:var(--warn-bg);color:var(--warn);border-color:#f0d9a8}
+.msg.bad{background:var(--bad-bg);color:var(--bad);border-color:#f3c3be}
+.msg.info{background:var(--info-bg);color:var(--info);border-color:#c5dcee}
+.hidden{display:none!important}
+dl{margin:14px 0 0;display:grid;grid-template-columns:max-content 1fr;gap:8px 18px}
+dt{color:var(--muted);font-size:.9rem}
+dd{margin:0;font-weight:600;overflow-wrap:anywhere}
+dd.mono{font-family:var(--mono)}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:.85rem;font-weight:700}
+.pill.ok{background:var(--ok-bg);color:var(--ok)}.pill.warn{background:var(--warn-bg);color:var(--warn)}.pill.bad{background:var(--bad-bg);color:var(--bad)}.pill.info{background:var(--info-bg);color:var(--info)}
+fieldset{border:0;padding:0;margin:0;min-width:0}
+.shops{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.shop{position:relative;margin:0}
+.shop input{position:absolute;opacity:0;width:1px;height:1px}
+.shop span{display:block;padding:12px;border:1px solid #cfc7ba;border-radius:10px;text-align:center;font-weight:600;font-size:.9rem;cursor:pointer;background:#fff;height:100%}
+.shop small{display:block;font-weight:400;color:var(--muted);font-size:.78rem}
+.shop input:checked+span{border-color:var(--gold);background:var(--gold-soft);box-shadow:inset 0 0 0 1px var(--gold)}
+.shop input:focus-visible+span{outline:3px solid #f1c35e;outline-offset:2px}
+.shop input:disabled+span{cursor:not-allowed;opacity:.7}
+.amt{position:relative}
+.amt b{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted)}
+.amt input{padding-left:46px;font-weight:600;font-size:1.15rem}
+.hint{color:var(--muted);font-size:.85rem;margin:6px 0 0}
+.err{color:var(--bad);font-size:.85rem;margin:6px 0 0;min-height:1.1em}
+.receipt{border:1px dashed #cdbf9f;background:#fffdf7;border-radius:12px;padding:16px;margin-top:14px}
+.receipt h3{margin:0;font-size:1rem}
+footer{max-width:1120px;margin:0 auto;padding:0 20px 28px;color:var(--muted);font-size:.8rem}
+@media (max-width:860px){main{grid-template-columns:1fr;padding:14px}.shops{grid-template-columns:1fr}.big{font-size:1.2rem}dl{grid-template-columns:1fr;gap:2px}dt{margin-top:8px}.banner{font-size:.95rem}}
+</style>
 </head>
 <body>
-    <h1>Hello, World!</h1>
+<div class="banner" id="testBanner" role="alert">TEST MODE: NOT FOR LIVE CUSTOMER TRANSACTIONS<small>Do not give real discounts or take real payments based on anything shown here.</small></div>
+<header>
+  <div class="bar">
+    <div class="brand"><h1 id="campaignName">Tihar Cross-Brand Voucher Campaign</h1><p>Cashier interface · Hetauda</p></div>
+    <span class="badge" id="modeBadge">TEST MODE</span>
+  </div>
+</header>
+
+<main>
+  <aside class="card" aria-labelledby="connTitle">
+    <h2 id="connTitle">Connection</h2>
+    <p class="sub">Enter the cashier code, then test the connection.</p>
+    <p class="status" role="status"><span class="dot" id="connDot"></span><span id="connText">Not connected</span></p>
+    <label for="code">Cashier code</label>
+    <input id="code" type="password" autocomplete="new-password" autocapitalize="off" spellcheck="false" enterkeyhint="go">
+    <label for="operator">Operator ID</label>
+    <input id="operator" type="text" value="cashier-01" maxlength="32" autocomplete="off" spellcheck="false" aria-describedby="operatorErr">
+    <p class="err" id="operatorErr" role="alert"></p>
+    <div class="row"><button class="ghost grow" id="testBtn" type="button">Test connection</button></div>
+    <div class="msg hidden" id="connMsg" role="status"></div>
+  </aside>
+
+  <div class="stack">
+    <section class="card step" id="s1" aria-labelledby="t1">
+      <h2 id="t1">1. Check voucher</h2>
+      <p class="sub">Enter the voucher ID from the customer.</p>
+      <label for="voucher">Voucher ID</label>
+      <input id="voucher" class="big" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" enterkeyhint="search" placeholder="TEST-XXXXXX">
+      <div class="row">
+        <button class="primary" id="checkBtn" type="button">Check voucher</button>
+        <button class="ghost" id="clearBtn" type="button">Clear / New voucher</button>
+      </div>
+      <div id="lookupOut" aria-live="polite"></div>
+    </section>
+
+    <section class="card step locked" id="s2" aria-labelledby="t2">
+      <h2 id="t2">2. Shop and bill</h2>
+      <p class="sub">Choose the redeeming shop and enter the bill before discount.</p>
+      <fieldset id="shopSet"><legend>Redeeming shop</legend><div class="shops" id="shops"></div></fieldset>
+      <label for="bill">Bill amount before discount (NPR)</label>
+      <div class="amt"><b>Rs.</b><input id="bill" type="text" inputmode="decimal" autocomplete="off" placeholder="0.00" enterkeyhint="done" aria-describedby="billErr"></div>
+      <p class="err" id="billErr" role="alert"></p>
+      <p class="hint">Final discount calculated by the backend. This screen shows no discount preview.</p>
+      <div class="row"><button class="gold" id="reviewBtn" type="button">Review redemption</button></div>
+    </section>
+
+    <section class="card step locked" id="s3" aria-labelledby="t3">
+      <h2 id="t3">3. Confirm redemption</h2>
+      <p class="sub">Check the details with the customer.</p>
+      <div id="confirmBox" class="hidden">
+        <dl id="confirmList"></dl>
+        <div class="msg warn"><strong>TEST MODE. Redemption is intended to be irreversible.</strong>Confirm only if you mean to use this voucher.</div>
+        <div class="row">
+          <button class="primary" id="confirmBtn" type="button">Confirm redemption</button>
+          <button class="ghost" id="backBtn" type="button">Go back</button>
+        </div>
+      </div>
+      <div id="resultOut" tabindex="-1" aria-live="polite"></div>
+    </section>
+  </div>
+</main>
+<footer>The cashier code is a temporary testing mechanism, not staff authentication. Nothing is stored in this browser; refreshing the page clears everything.</footer>
+
+<script>
+/* ===================== CONFIGURATION =====================
+ * CASHIER_ACCESS_CODE: leave EMPTY in the committed file. For local testing only, set it in a
+ * private, uncommitted copy. NEVER commit a real code publicly. If empty, type it in the
+ * Connection panel (held in memory only, lost on refresh).
+ * BACKEND_SECRET must NEVER appear in this file. It lives only in Cloudflare and Apps Script.
+ * REDEEM_SUCCESS_STATUSES: the backend's redeem success format is not documented. A redemption
+ * is shown as successful ONLY if result.status matches one of these values. Anything else is
+ * shown as "unconfirmed". Set this to the real value once the backend contract is confirmed.
+ */
+const CONFIG = {
+  API_URL: "https://tihar-voucher-api.yaduupretti8.workers.dev/",
+  CASHIER_ACCESS_CODE: "",
+  CAMPAIGN_NAME: "Tihar Cross-Brand Voucher Campaign",
+  TEST_MODE: true,
+  SHOPS: [
+    { code: "VRINDAVAN", name: "Vrindavan Misthanna Bhandar" },
+    { code: "NISARA", name: "Nisara Clothing & Fashion" },
+    { code: "RISHU", name: "Rishu Beauty Parlour" }
+  ],
+  REDEEM_SUCCESS_STATUSES: ["REDEEMED", "SUCCESS"],
+  REQUEST_TIMEOUT_MS: 20000,
+  MAX_BILL_NPR: 1000000
+};
+Object.freeze(CONFIG);
+
+(function () {
+  "use strict";
+  const $ = (id) => document.getElementById(id);
+  const TZ = "Asia/Kathmandu";
+  const ALLOWED_ACTIONS = ["api_test", "lookup", "redeem"];
+
+  const state = {
+    code: CONFIG.CASHIER_ACCESS_CODE || "",
+    connected: null,
+    busy: false,       // false | "conn" | "lookup" | "redeem" | "recheck"
+    seq: 0,
+    lookup: null,      // {voucherId, status, distributedFrom}: latest lookup result
+    stage: "idle",     // idle | valid | confirm | submitting | done
+    shop: "", bill: null,
+    pending: null,     // exact redeem payload incl. requestId; reused on manual retry
+    attempts: 0,
+    outcome: null,
+    note: null
+  };
+
+  /* ---------- helpers ---------- */
+  const clean = (v, n) => String(v).replace(/[\u0000-\u001F\u007F-\u009F\u202A-\u202E\u2066-\u2069]/g, "").slice(0, n || 400);
+  const isObj = (v) => v !== null && typeof v === "object" && !Array.isArray(v);
+  function clear(n) { while (n.firstChild) n.removeChild(n.firstChild); }
+  function mk(tag, text, cls) {
+    const n = document.createElement(tag);
+    if (text != null) n.textContent = clean(text);
+    if (cls) n.className = cls;
+    return n;
+  }
+  function msg(kind, title, body) {
+    const d = mk("div", null, "msg " + kind);
+    d.appendChild(mk("strong", title));
+    if (body) d.appendChild(document.createTextNode(clean(body)));
+    return d;
+  }
+  function newRequestId() {
+    if (window.crypto && typeof crypto.randomUUID === "function") return crypto.randomUUID();
+    const b = new Uint8Array(16);
+    if (window.crypto && crypto.getRandomValues) crypto.getRandomValues(b);
+    else for (let i = 0; i < 16; i++) b[i] = Math.floor(Math.random() * 256);
+    return "req-" + Date.now().toString(36) + "-" + Array.from(b, (x) => x.toString(16).padStart(2, "0")).join("");
+  }
+  const normVoucher = (s) => String(s || "").trim().toUpperCase();
+  function shopName(code) { const s = CONFIG.SHOPS.find((x) => x.code === code); return s ? s.name : clean(code, 60); }
+  function money(v) {
+    const n = typeof v === "number" ? v : (typeof v === "string" && v.trim() !== "" ? Number(v) : NaN);
+    return isFinite(n) ? "Rs. " + n.toLocaleString("en-IN", { maximumFractionDigits: 2 }) : clean(v, 60);
+  }
+  function fmtTime(v) {
+    const ok = (typeof v === "string" && /^\d{4}-\d{2}-\d{2}/.test(v)) || (typeof v === "number" && v > 1e11);
+    const d = ok ? new Date(v) : null;
+    return d && !isNaN(d.getTime()) ? d.toLocaleString("en-GB", { timeZone: TZ, dateStyle: "medium", timeStyle: "medium" }) + " (NPT)" : clean(v, 80);
+  }
+  function parseBill(raw) {
+    const t = String(raw).replace(/,/g, "").trim();
+    if (t === "") return { err: "Enter the bill amount." };
+    if (!/^\d+(\.\d{1,2})?$/.test(t)) return { err: "Use digits only, with up to 2 decimals." };
+    const n = Number(t);
+    if (!isFinite(n) || n < 0) return { err: "Enter a valid amount." };
+    if (n === 0) return { err: "The bill must be greater than zero." };
+    if (n > CONFIG.MAX_BILL_NPR) return { err: "Amount is above the Rs. " + CONFIG.MAX_BILL_NPR.toLocaleString("en-IN") + " limit." };
+    return { value: n };
+  }
+  function setErr(inputId, errId, text) {
+    $(errId).textContent = text || "";
+    $(inputId).setAttribute("aria-invalid", text ? "true" : "false");
+  }
+  const validOperator = () => /^[A-Za-z0-9_-]{1,32}$/.test($("operator").value.trim());
+  function captureCode() {
+    const v = $("code").value;
+    if (v) { state.code = v; $("code").value = ""; $("code").placeholder = "Held in memory. Retype to change."; }
+  }
+
+  /* ---------- API (only the Worker URL, only supported actions) ---------- */
+  async function api(payload) {
+    if (ALLOWED_ACTIONS.indexOf(payload.action) === -1) throw { kind: "blocked", message: "Unsupported action." };
+    if (!state.code) throw { kind: "auth", message: "Enter the cashier code first." };
+    if (!/^[\x20-\x7E]{1,128}$/.test(state.code)) throw { kind: "auth", message: "The cashier code has unsupported characters." };
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), CONFIG.REQUEST_TIMEOUT_MS);
+    let res, text;
+    try {
+      res = await fetch(CONFIG.API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-Cashier-Code": state.code },
+        body: JSON.stringify(payload),
+        cache: "no-store", credentials: "omit", referrerPolicy: "no-referrer", signal: ctrl.signal
+      });
+      text = await res.text();
+    } catch (e) {
+      throw e && e.name === "AbortError" ? { kind: "timeout", message: "The request timed out." } : { kind: "network", message: "Could not reach the server." };
+    } finally { clearTimeout(timer); }
+    let data = null;
+    try { data = JSON.parse(text); } catch (e) { /* handled below */ }
+    const good = isObj(data) ? data : null;
+    const apiMsg = good && typeof good.error === "string" ? clean(good.error, 200) : "";
+    if (res.status === 401 || res.status === 403) throw { kind: "auth", status: res.status, message: apiMsg || "The cashier code was rejected." };
+    if (!res.ok) throw { kind: "http", status: res.status, data: good, message: apiMsg || ("Server returned HTTP " + res.status + ".") };
+    if (!good) throw { kind: "parse", message: "The server sent an unreadable response." };
+    return good;
+  }
+
+  /* ---------- connection ---------- */
+  function showConnMsg(kind, title, body) {
+    const b = $("connMsg"); clear(b); b.className = "msg " + kind;
+    b.appendChild(mk("strong", title)); if (body) b.appendChild(document.createTextNode(clean(body)));
+  }
+  async function testConnection() {
+    if (state.busy) return;
+    captureCode();
+    state.busy = "conn"; render();
+    try {
+      const d = await api({ action: "api_test" });
+      if (d.ok === true) { state.connected = true; showConnMsg("ok", "Connected", "The API responded and accepted the cashier code."); }
+      else { state.connected = false; showConnMsg("bad", "Connection test failed", typeof d.error === "string" ? d.error : "The API did not confirm the test."); }
+    } catch (e) {
+      state.connected = false;
+      showConnMsg("bad", e.kind === "auth" ? "Cashier code problem" : "Connection failed", e.message);
+    }
+    state.busy = false; render();
+  }
+
+  /* ---------- lookup ---------- */
+  function resetTransaction() {
+    state.seq++;
+    state.lookup = null; state.stage = "idle"; state.shop = ""; state.bill = null;
+    state.pending = null; state.attempts = 0; state.outcome = null; state.note = null;
+    $("bill").value = ""; setErr("bill", "billErr", "");
+    document.querySelectorAll('input[name="shop"]').forEach((r) => { r.checked = false; });
+    clear($("lookupOut")); clear($("resultOut"));
+  }
+  function lookupMsg(kind, title, body) { const o = $("lookupOut"); clear(o); o.appendChild(msg(kind, title, body)); }
+
+  async function checkVoucher() {
+    if (state.busy) return;
+    captureCode();
+    const id = normVoucher($("voucher").value);
+    $("voucher").value = id;
+    resetTransaction();
+    if (!/^[A-Z0-9][A-Z0-9_-]{2,63}$/.test(id)) { render(); return lookupMsg("bad", "Voucher ID looks wrong", "Use letters, numbers and dashes only."); }
+    const seq = ++state.seq;
+    state.busy = "lookup"; render();
+    lookupMsg("info", "Checking voucher...", "");
+    try {
+      const d = await api({ action: "lookup", voucherId: id });
+      if (seq !== state.seq) return;
+      const r = d.result;
+      if (d.ok !== true || d.action !== "lookup" || !isObj(r)) {
+        lookupMsg("bad", "Voucher check failed", typeof d.error === "string" ? d.error : "The backend did not return a lookup result.");
+      } else if (typeof r.voucherId === "string" && normVoucher(r.voucherId) !== id) {
+        lookupMsg("bad", "Response mismatch", "The backend answered for a different voucher. Check again.");
+      } else {
+        const status = typeof r.status === "string" ? clean(r.status, 40).toUpperCase() : "";
+        state.lookup = { voucherId: id, status: status, distributedFrom: typeof r.distributedFrom === "string" ? clean(r.distributedFrom, 60) : "" };
+        if (status === "VALID") state.stage = "valid";
+      }
+    } catch (e) {
+      if (seq === state.seq) lookupMsg("bad", e.kind === "auth" ? "Cashier code problem" : "Voucher check failed", e.message + " No redemption was attempted.");
+      if (e.kind === "auth") state.connected = false;
+    } finally { state.busy = false; render(); }
+  }
+  function renderLookup() {
+    const L = state.lookup, o = $("lookupOut"); clear(o);
+    const inTx = state.stage === "submitting" || state.stage === "done";
+    let kind = "bad", title = "Voucher cannot be redeemed", guide = "Status: " + (L.status || "unknown") + ". Do not apply a discount.";
+    if (L.status === "VALID") { kind = "ok"; title = "Voucher is valid"; guide = "Choose the redeeming shop and enter the bill below."; }
+    else if (L.status === "ALREADY_REDEEMED") { kind = "warn"; title = "Already redeemed"; guide = "This voucher was used before. Do not apply a discount."; }
+    if (inTx) { o.appendChild(msg("info", "Redemption submitted", "See step 3 for the backend result.")); }
+    else o.appendChild(msg(kind, title, guide));
+    const dl = mk("dl");
+    dl.appendChild(mk("dt", "Voucher ID")); dl.appendChild(mk("dd", L.voucherId, "mono"));
+    dl.appendChild(mk("dt", "Issued by")); dl.appendChild(mk("dd", L.distributedFrom ? shopName(L.distributedFrom) : "Not provided"));
+    const dd = mk("dd"); dd.appendChild(mk("span", L.status || "UNKNOWN", "pill " + (inTx ? "info" : kind)));
+    dl.appendChild(mk("dt", inTx ? "Latest lookup status" : "Status")); dl.appendChild(dd);
+    o.appendChild(dl);
+  }
+
+  /* ---------- review + redeem ---------- */
+  function review() {
+    if (state.busy || state.stage !== "valid" || !state.lookup || state.lookup.status !== "VALID") return;
+    const shop = (document.querySelector('input[name="shop"]:checked') || {}).value || "";
+    const b = parseBill($("bill").value);
+    setErr("operator", "operatorErr", validOperator() ? "" : "Use letters, numbers, - and _ only (max 32).");
+    if (!shop) { setErr("bill", "billErr", "Select the redeeming shop."); return; }
+    setErr("bill", "billErr", b.err || "");
+    if (b.err) { $("bill").focus(); return; }
+    if (!validOperator()) { $("operator").focus(); return; }
+    state.shop = shop; state.bill = b.value; state.stage = "confirm"; state.pending = null; state.attempts = 0;
+    render(); $("confirmBtn").focus();
+  }
+  function goBack() {
+    if (state.busy || state.stage !== "confirm") return;
+    state.stage = "valid"; state.pending = null; render(); $("reviewBtn").focus();
+  }
+  async function confirmRedeem() {
+    const retry = state.stage === "done" && state.outcome && state.outcome.type === "uncertain";
+    if (state.busy || !(state.stage === "confirm" || retry)) return;
+    if (!state.lookup || state.lookup.status !== "VALID") return;   // latest lookup must be explicitly VALID
+    if (!state.pending) {                                           // built once; retries resend it unchanged
+      state.pending = { action: "redeem", voucherId: state.lookup.voucherId, shopCode: state.shop,
+        billBeforeDiscount: state.bill, operatorId: $("operator").value.trim(), requestId: newRequestId() };
+    }
+    state.attempts++;
+    state.stage = "submitting"; state.outcome = null; state.note = null; state.busy = "redeem"; render();
+    try {
+      state.outcome = classify(await api(state.pending));
+    } catch (e) {
+      const o = e.data ? classify(e.data) : null;
+      if (e.kind === "http" && o && (o.type === "already" || o.type === "failed")) state.outcome = o;
+      else if (e.kind === "auth" || (e.kind === "http" && e.status >= 400 && e.status < 500 && e.status !== 408 && e.status !== 429))
+        state.outcome = { type: "failed", message: e.message, result: o && o.result };
+      else state.outcome = { type: "uncertain", message: e.message, result: null };
+    }
+    if (state.outcome.type !== "uncertain") state.pending = null;   // only uncertain requests keep their ID
+    state.stage = "done"; state.busy = false; render(); $("resultOut").focus();
+  }
+  function classify(d) {
+    const r = isObj(d.result) ? d.result : null;
+    const s = r && typeof r.status === "string" ? clean(r.status, 40).toUpperCase() : "";
+    if (s === "ALREADY_REDEEMED") return { type: "already", result: r };
+    if (d.ok !== true) return { type: "failed", message: typeof d.error === "string" ? d.error : "The backend rejected the request.", result: r };
+    if (d.action !== "redeem" || !r) return { type: "uncertain", message: "The response was not a recognised redeem result.", result: r };
+    if (r.success === false || r.redeemed === false || /FAIL|ERROR|INVALID|NOT_FOUND|REJECT|DENIED|CONFLICT|EXPIRED/.test(s))
+      return { type: "failed", message: "The backend reported: " + (s || "failure") + ".", result: r };
+    const P = state.pending;
+    if (typeof r.voucherId === "string" && normVoucher(r.voucherId) !== P.voucherId) return { type: "uncertain", message: "The response names a different voucher.", result: r };
+    if (typeof r.requestId === "string" && r.requestId !== P.requestId) return { type: "uncertain", message: "The response names a different request.", result: r };
+    const echo = [r.shopCode, r.redeemingShop, r.redeemedAtShop].find((x) => typeof x === "string");
+    if (echo && echo.toUpperCase() !== P.shopCode) return { type: "uncertain", message: "The response names a different shop.", result: r };
+    if (CONFIG.REDEEM_SUCCESS_STATUSES.indexOf(s) !== -1) return { type: "success", result: r };
+    return { type: "uncertain", message: "The backend did not clearly confirm the redemption (status: " + (s || "none") + ").", result: r, format: true };
+  }
+  async function recheck() {
+    if (state.busy || !state.lookup) return;
+    state.busy = "recheck"; render();
+    try {
+      const d = await api({ action: "lookup", voucherId: state.lookup.voucherId });
+      const r = d.result;
+      if (d.ok !== true || d.action !== "lookup" || !isObj(r) || (typeof r.voucherId === "string" && normVoucher(r.voucherId) !== state.lookup.voucherId))
+        state.note = { kind: "bad", title: "Status check returned an unusable answer", body: "Treat the voucher as unresolved." };
+      else {
+        const s = typeof r.status === "string" ? clean(r.status, 40).toUpperCase() : "UNKNOWN";
+        state.lookup.status = s;
+        state.note = { kind: s === "VALID" ? "info" : "warn", title: "Current voucher status: " + s,
+          body: s === "VALID" ? "Still valid, so the earlier request probably did not complete. You may retry the same request." :
+            s === "ALREADY_REDEEMED" ? "The voucher now shows as redeemed. The earlier request may have gone through. Verify with the campaign owner before charging." :
+            "Do not apply a discount until this is resolved. Retry is blocked." };
+      }
+    } catch (e) { state.note = { kind: "bad", title: "Status check failed", body: e.message }; }
+    state.busy = false; render();
+  }
+
+  /* ---------- result rendering ---------- */
+  const KEYS = {
+    "Redemption ID": ["redemptionId", "redemption_id", "transactionId", "receiptId"],
+    "Final discount": ["finalDiscount", "discountAmount"],
+    "Final payable": ["finalPayable", "finalPayableAmount", "netPayable"],
+    "Redeeming shop": ["redeemingShop", "redeemedAtShop", "shopCode"],
+    "Time": ["redeemedAt", "redeemedAtTime", "timestamp", "redeemedOn", "createdAt"]
+  };
+  function fields(parent, result, labelled) {
+    const dl = mk("dl"), used = new Set(), found = {};
+    const add = (k, v, c) => { dl.appendChild(mk("dt", k)); dl.appendChild(mk("dd", v, c)); };
+    if (labelled) Object.keys(KEYS).forEach((label) => {
+      const key = KEYS[label].find((k) => result[k] != null && !isObj(result[k]) && !Array.isArray(result[k]));
+      if (!key) return;
+      used.add(key); found[label] = result[key];
+      const v = result[key];
+      add(label, /discount|payable/i.test(label) ? money(v) : label === "Time" ? fmtTime(v) : label === "Redeeming shop" ? shopName(String(v).toUpperCase()) : v, label === "Redemption ID" ? "mono" : "");
+    });
+    Object.keys(result).slice(0, 25).forEach((k) => {
+      const v = result[k];
+      if (used.has(k) || k === "voucherId" || v == null || typeof v === "object") return;
+      add(k, v);
+    });
+    parent.appendChild(dl);
+    return found;
+  }
+  function renderOutcome() {
+    const o = $("resultOut"); clear(o);
+    const out = state.outcome; if (!out) return;
+    if (out.type === "success") {
+      o.appendChild(msg("ok", "Backend reported the redemption as successful", CONFIG.TEST_MODE ? "TEST transaction. Do not apply this to a real customer bill." : ""));
+      const rc = mk("div", null, "receipt");
+      rc.appendChild(mk("h3", "Receipt details (from the backend response)"));
+      const dl0 = mk("dl"); dl0.appendChild(mk("dt", "Voucher ID")); dl0.appendChild(mk("dd", state.lookup.voucherId, "mono"));
+      dl0.appendChild(mk("dt", "Bill entered (before discount)")); dl0.appendChild(mk("dd", money(state.bill))); rc.appendChild(dl0);
+      const f = fields(rc, out.result, true);
+      if (f["Final discount"] === undefined) rc.appendChild(mk("p", "Limitation: the backend did not return a final discount, so no discount amount is confirmed.", "hint"));
+      else if (Number(f["Final discount"]) === 0) rc.appendChild(mk("p", "The backend returned a zero discount. This looks like a development offer, not a real campaign offer.", "hint"));
+      o.appendChild(rc);
+    } else if (out.type === "already") {
+      o.appendChild(msg("warn", "Already redeemed", state.attempts > 1
+        ? "The backend says this voucher is redeemed. Your earlier attempt may be the one that succeeded. Verify with the campaign owner before charging."
+        : "No discount should be applied."));
+    } else if (out.type === "failed") {
+      o.appendChild(msg("bad", "Redemption failed", out.message + " No success was confirmed. Start again with a new voucher check."));
+    } else {
+      o.appendChild(msg("warn", "Result unconfirmed", out.message + " Do not treat this as redeemed. Check the voucher status before deciding."));
+      if (out.format) o.appendChild(mk("p", "Limitation: the backend's redeem success format is not documented, so this page cannot confirm success.", "hint"));
+      if (out.result) { o.appendChild(mk("p", "Backend returned:", "hint")); fields(o, out.result, false); }
+      const row = mk("div", null, "row");
+      const a = mk("button", "Check voucher status", "primary"); a.type = "button"; a.disabled = !!state.busy; a.addEventListener("click", recheck);
+      const b = mk("button", "Retry same request", "ghost"); b.type = "button";
+      b.disabled = !!state.busy || !state.lookup || state.lookup.status !== "VALID"; b.addEventListener("click", confirmRedeem);
+      row.appendChild(a); row.appendChild(b); o.appendChild(row);
+      if (state.note) o.appendChild(msg(state.note.kind, state.note.title, state.note.body));
+    }
+  }
+
+  /* ---------- main render ---------- */
+  function render() {
+    const busy = !!state.busy, st = state.stage;
+    const dot = $("connDot"), t = $("connText");
+    dot.className = "dot" + (state.connected === true ? " ok" : state.connected === false ? " bad" : "");
+    t.textContent = state.connected === true ? "Connected" : state.connected === false ? "Connection failed" : "Not connected";
+    if (state.busy === "conn") { dot.className = "dot busy"; t.textContent = "Testing..."; }
+
+    const uncertain = st === "done" && state.outcome && state.outcome.type === "uncertain";
+    const locked = busy || st === "submitting" || uncertain;
+    $("testBtn").disabled = busy; $("code").disabled = busy;
+    $("operator").disabled = busy || st === "confirm" || st === "submitting" || st === "done";
+    $("checkBtn").disabled = locked;
+    $("checkBtn").textContent = state.busy === "lookup" ? "Checking..." : "Check voucher";
+    $("voucher").disabled = locked;
+    $("clearBtn").disabled = busy;
+
+    if (state.lookup) renderLookup();
+    const open2 = st !== "idle";
+    $("s2").classList.toggle("locked", !open2);
+    const lock2 = st !== "valid" || busy;
+    document.querySelectorAll('input[name="shop"]').forEach((r) => { r.disabled = lock2; });
+    $("bill").disabled = lock2; $("reviewBtn").disabled = lock2;
+
+    $("s3").classList.toggle("locked", !(st === "confirm" || st === "submitting" || st === "done"));
+    const conf = st === "confirm" || st === "submitting";
+    $("confirmBox").classList.toggle("hidden", !conf);
+    if (conf) {
+      const L = state.lookup, dl = $("confirmList"); clear(dl);
+      const add = (k, v, c) => { dl.appendChild(mk("dt", k)); dl.appendChild(mk("dd", v, c)); };
+      add("Voucher ID", L.voucherId, "mono");
+      add("Issued by", L.distributedFrom ? shopName(L.distributedFrom) : "Not provided");
+      add("Redeeming shop", shopName(state.shop));
+      add("Bill before discount", money(state.bill));
+    }
+    $("confirmBtn").disabled = busy || st === "submitting";
+    $("confirmBtn").textContent = st === "submitting" ? "Submitting..." : "Confirm redemption";
+    $("backBtn").disabled = busy || st === "submitting";
+    if (st === "submitting") { const o = $("resultOut"); clear(o); o.appendChild(msg("info", "Submitting redemption...", "Do not close or refresh this page.")); }
+    else if (st === "done") renderOutcome();
+    else clear($("resultOut"));
+  }
+
+  /* ---------- init ---------- */
+  function init() {
+    document.title = CONFIG.CAMPAIGN_NAME + " - Cashier";
+    $("campaignName").textContent = CONFIG.CAMPAIGN_NAME;
+    $("modeBadge").textContent = CONFIG.TEST_MODE ? "TEST MODE" : "LIVE MODE";
+    $("testBanner").classList.toggle("hidden", !CONFIG.TEST_MODE);
+    CONFIG.SHOPS.forEach((s) => {
+      const l = mk("label", null, "shop");
+      const i = document.createElement("input"); i.type = "radio"; i.name = "shop"; i.value = s.code;
+      const sp = mk("span", s.code); sp.appendChild(mk("small", s.name));
+      l.appendChild(i); l.appendChild(sp); $("shops").appendChild(l);
+    });
+    $("testBtn").addEventListener("click", testConnection);
+    $("code").addEventListener("keydown", (e) => { if (e.key === "Enter") testConnection(); });
+    $("checkBtn").addEventListener("click", checkVoucher);
+    $("voucher").addEventListener("keydown", (e) => { if (e.key === "Enter") checkVoucher(); });
+    $("voucher").addEventListener("input", () => {
+      if (state.lookup && !state.busy && normVoucher($("voucher").value) !== state.lookup.voucherId) { resetTransaction(); render(); }
+    });
+    $("clearBtn").addEventListener("click", () => {
+      if (state.busy) return;
+      if (state.pending && !window.confirm("A redemption result is still unconfirmed. Clearing discards its request ID. Clear anyway?")) return;
+      resetTransaction(); $("voucher").value = ""; $("operator").setAttribute("aria-invalid", "false"); $("operatorErr").textContent = ""; render(); $("voucher").focus();
+    });
+    $("reviewBtn").addEventListener("click", review);
+    $("bill").addEventListener("keydown", (e) => { if (e.key === "Enter") review(); });
+    $("bill").addEventListener("input", () => setErr("bill", "billErr", ""));
+    $("backBtn").addEventListener("click", goBack);
+    $("confirmBtn").addEventListener("click", confirmRedeem);
+    window.addEventListener("beforeunload", (e) => {
+      if (state.stage === "submitting" || state.pending) { e.preventDefault(); e.returnValue = ""; }
+    });
+    render();
+  }
+  init();
+})();
+</script>
 </body>
 </html>
